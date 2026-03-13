@@ -22,11 +22,18 @@ export default async function GroupsPage() {
   const groups = await getGroupsWithCounts();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-[#FAF8F5] dark:bg-slate-900">
       {/* Hero Header */}
-      <div className="hero-gradient py-16 md:py-20">
+      <div
+        className="py-16 md:py-20"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%), #FAF8F5",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">Archetype Groups</h1>
+          <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Community</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display">Archetype Groups</h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Each group brings together creators who share the same core archetype. Join your group to connect and collaborate.
           </p>

@@ -6,8 +6,8 @@ export function SkeletonLine({ className = "", style }: { className?: string; st
 
 export function SkeletonMeetingCard() {
   return (
-    <div className="rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 overflow-hidden">
-      <div className="h-1 skeleton-shimmer" />
+    <div className="rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden">
+      <div className="h-[3px] skeleton-shimmer" />
       <div className="p-6 space-y-4">
         <div className="flex justify-between">
           <SkeletonLine className="h-6 w-24" />
@@ -22,7 +22,7 @@ export function SkeletonMeetingCard() {
         </div>
         <div className="flex justify-between">
           <SkeletonLine className="h-4 w-32" />
-          <SkeletonLine className="h-9 w-20 rounded-full" />
+          <SkeletonLine className="h-9 w-20 rounded-xl" />
         </div>
       </div>
     </div>
@@ -31,8 +31,8 @@ export function SkeletonMeetingCard() {
 
 export function SkeletonIdentityCard() {
   return (
-    <div className="rounded-3xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 overflow-hidden">
-      <div className="h-32 skeleton-shimmer" />
+    <div className="rounded-[28px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden">
+      <div className="h-28 skeleton-shimmer" />
       <div className="flex justify-center -mt-12">
         <div className="w-24 h-24 rounded-2xl skeleton-shimmer border-4 border-white dark:border-slate-800" />
       </div>
@@ -41,14 +41,14 @@ export function SkeletonIdentityCard() {
         <SkeletonLine className="h-4 w-64" />
         <div className="grid grid-cols-3 gap-3 w-full">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="p-3 rounded-xl border border-gray-100 dark:border-slate-700 space-y-2 flex flex-col items-center">
-              <SkeletonLine className="h-5 w-5 rounded-full" />
+            <div key={i} className="p-3 rounded-xl border border-black/[0.04] dark:border-slate-700 space-y-2 flex flex-col items-center">
+              <SkeletonLine className="h-2 w-2 rounded-full" />
               <SkeletonLine className="h-3 w-10" />
               <SkeletonLine className="h-4 w-16" />
             </div>
           ))}
         </div>
-        <SkeletonLine className="h-8 w-48 rounded-full" />
+        <SkeletonLine className="h-8 w-48 rounded-xl" />
       </div>
     </div>
   );
@@ -56,7 +56,7 @@ export function SkeletonIdentityCard() {
 
 export function SkeletonBarChart() {
   return (
-    <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
+    <div className="space-y-3 p-6 rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700">
       {Array.from({ length: 6 }, (_, i) => (
         <div key={i} className="flex items-center gap-3">
           <SkeletonLine className="h-4 w-24 shrink-0" />

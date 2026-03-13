@@ -2,15 +2,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4f46e5;
-  --color-secondary: #0ea5e9;
-  --color-accent: #f59e0b;
-  --color-surface: #f8fafc;
+  --color-primary: #D4654A;
+  --color-primary-light: #E8806A;
+  --color-primary-dark: #C05A42;
+  --color-secondary: #3D8B7A;
+  --color-accent: #C4A35A;
+  --color-surface: #FAF8F5;
   --color-surface-dark: #0f172a;
   --color-card: #ffffff;
   --color-card-dark: #1e293b;
+
+  /* Warm Studio tokens */
+  --color-canvas: #FAF8F5;
+  --color-surface-alt: #F5F1EC;
+  --color-primary-soft: #FEF0EC;
+  --color-secondary-soft: #EDF5F3;
+  --color-accent-soft: #FEF9EE;
+  --color-ink: #1A1A2E;
 
   /* Archetype colors */
   --color-pirate: #E11D48;
@@ -43,8 +51,8 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--color-surface);
-  color: #0f172a;
+  background: #FAF8F5;
+  color: #4A5568;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -72,8 +80,8 @@ html.dark body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-  50% { box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.2); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 101, 74, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(212, 101, 74, 0.2); }
 }
 
 @keyframes float {
@@ -120,7 +128,7 @@ html.dark body {
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background: linear-gradient(90deg, #F5F1EC 25%, #FAF8F5 50%, #F5F1EC 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
@@ -137,16 +145,16 @@ html.dark .skeleton-shimmer {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1, #0ea5e9, #8b5cf6);
+  background: linear-gradient(135deg, #D4654A, #3D8B7A, #C4A35A);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(250, 248, 245, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 html.dark .glass-card {
@@ -155,25 +163,32 @@ html.dark .glass-card {
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #c7d2fe 0%, #bae6fd 35%, #fbcfe8 70%, #e9d5ff 100%);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 101, 74, 0.06), transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(61, 139, 122, 0.05), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(196, 163, 90, 0.04), transparent 60%),
+    #FAF8F5;
 }
 
 html.dark .hero-gradient {
-  background: linear-gradient(135deg, #312e81 0%, #1e3a5f 35%, #5b2150 70%, #3b1d6e 100%);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 101, 74, 0.10), transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(61, 139, 122, 0.08), transparent 50%),
+    #0f172a;
 }
 
 /* ---- Card & section utilities ---- */
 
 .card-elevated {
   background: white;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-elevated:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
 }
 html.dark .card-elevated {
   background: #1e293b;
@@ -185,8 +200,15 @@ html.dark .card-elevated:hover {
 }
 
 .section-accent {
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 50%, #f8fafc 100%);
+  background: #F5F1EC;
 }
 html.dark .section-accent {
   background: linear-gradient(180deg, #0f172a 0%, #1a1c3a 50%, #0f172a 100%);
+}
+
+.section-warm {
+  background: #F5F1EC;
+}
+html.dark .section-warm {
+  background: #0f172a;
 }

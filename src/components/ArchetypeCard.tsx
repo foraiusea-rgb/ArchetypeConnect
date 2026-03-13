@@ -26,16 +26,16 @@ export default function ArchetypeCard({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md" style={{ borderLeft: `4px solid ${archetype.color}` }}>
-        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${archetype.color}20` }}>
+      <div className="flex items-center gap-3 p-3 rounded-[14px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700" style={{ borderLeft: `4px solid ${archetype.color}` }}>
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${archetype.color}15` }}>
           <ArchetypeIcon name={name} size={18} color={archetype.color} />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm text-gray-900 dark:text-gray-100">{name}</p>
+          <p className="font-semibold text-sm text-[#1A1A2E] dark:text-gray-100">{name}</p>
           {label && <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>}
         </div>
         {score !== undefined && (
-          <span className="text-sm font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${archetype.color}15`, color: archetype.color }}>
+          <span className="text-sm font-bold px-2 py-0.5 rounded-lg" style={{ backgroundColor: `${archetype.color}10`, color: archetype.color }}>
             {score}
           </span>
         )}
@@ -44,24 +44,30 @@ export default function ArchetypeCard({
   }
 
   return (
-    <div className="group relative p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style={{ borderLeft: `4px solid ${archetype.color}` }}>
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(135deg, ${archetype.color}08, ${archetype.color}18)` }} />
-      <div className="relative">
-        <div className="flex items-start justify-between mb-4">
-          <div className="w-16 h-16 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${archetype.color}30, ${archetype.color}15)`, border: `1px solid ${archetype.color}25`, boxShadow: `0 0 0 3px ${archetype.color}08` }}>
-            <ArchetypeIcon name={name} size={24} color={archetype.color} />
-          </div>
-          {label && (
-            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: `${archetype.color}15`, color: archetype.color }}>
-              {label}
-            </span>
-          )}
+    <div className="group relative rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+      style={{ borderColor: undefined }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = `${archetype.color}25`}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)'}
+    >
+      {/* Big visual area */}
+      <div className="h-[120px] flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${archetype.color}12, ${archetype.color}05)` }}>
+        <ArchetypeIcon name={name} size={40} color={archetype.color} />
+        {label && (
+          <span className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-lg" style={{ backgroundColor: `${archetype.color}12`, color: archetype.color }}>
+            {label}
+          </span>
+        )}
+      </div>
+
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: archetype.color }} />
+          <h3 className="text-lg font-bold text-[#1A1A2E] dark:text-gray-100">{name}</h3>
         </div>
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{name}</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">{archetype.description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">{archetype.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {archetype.traits.map((trait) => (
-            <span key={trait} className="text-xs px-2.5 py-1 rounded-full bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-slate-600">
+            <span key={trait} className="text-xs font-medium px-2.5 py-1 rounded-lg" style={{ backgroundColor: `${archetype.color}08`, color: archetype.color }}>
               {trait}
             </span>
           ))}
@@ -72,8 +78,8 @@ export default function ArchetypeCard({
               <span>Score</span>
               <span>{score} / {maxScore}</span>
             </div>
-            <div className="h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
-              <div className="h-full rounded-full transition-all duration-700 ease-out" style={{ width: `${percentage}%`, background: `linear-gradient(90deg, ${archetype.color}aa, ${archetype.color})`, boxShadow: `0 0 12px ${archetype.color}50` }} />
+            <div className="h-2.5 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div className="h-full rounded-full transition-all duration-700 ease-out" style={{ width: `${percentage}%`, background: `linear-gradient(90deg, ${archetype.color}bb, ${archetype.color})` }} />
             </div>
           </div>
         )}

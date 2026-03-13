@@ -22,11 +22,11 @@ export default function MeetingCard({ meeting, onJoin }: MeetingCardProps) {
   const isPast = date < new Date();
 
   return (
-    <div className={`rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 ${meeting.cancelled ? "opacity-60" : ""}`}>
-      <div className="h-1.5 w-full" style={{ backgroundColor: typeInfo.stripe }} />
+    <div className={`rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${meeting.cancelled ? "opacity-60" : ""}`}>
+      <div className="h-[3px] w-full" style={{ backgroundColor: typeInfo.stripe }} />
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
-          <span className={`text-xs font-semibold px-3 py-1 rounded-full ${typeInfo.bg} ${typeInfo.color}`}>
+          <span className={`text-xs font-semibold px-3 py-1 rounded-lg ${typeInfo.bg} ${typeInfo.color}`}>
             {typeInfo.label}
           </span>
           {meeting.cancelled ? (
@@ -38,7 +38,7 @@ export default function MeetingCard({ meeting, onJoin }: MeetingCardProps) {
           )}
         </div>
 
-        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{meeting.title}</h3>
+        <h3 className="text-lg font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">{meeting.title}</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">{meeting.description}</p>
 
         <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
@@ -58,7 +58,7 @@ export default function MeetingCard({ meeting, onJoin }: MeetingCardProps) {
             {meeting.hostName && (<>Hosted by <span className="font-medium text-gray-600 dark:text-gray-300">{meeting.hostName}</span></>)}
           </p>
           {onJoin && !isFull && !isPast && !meeting.cancelled && (
-            <button onClick={onJoin} className="group/btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 dark:shadow-indigo-900/30 hover:shadow-lg">
+            <button onClick={onJoin} className="group/btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#D4654A] text-white text-sm font-semibold hover:bg-[#C05A42] transition-all shadow-sm hover:shadow-md">
               Join
               <ArrowRight size={14} className="opacity-0 -translate-x-1 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all" />
             </button>

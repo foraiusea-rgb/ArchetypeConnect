@@ -120,13 +120,13 @@ export default function QuizPage() {
   // Analyzing overlay
   if (isSubmitting) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-50 dark:bg-slate-900">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-[#FAF8F5] dark:bg-slate-900">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="relative w-24 h-24 mx-auto mb-8">
-            <div className="absolute inset-0 rounded-full border-4 border-indigo-100 dark:border-indigo-900" />
-            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-600 animate-spin" />
+            <div className="absolute inset-0 rounded-full border-4 border-[#FEF0EC] dark:border-[#D4654A]/20" />
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#D4654A] animate-spin" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles size={28} className="text-indigo-600 dark:text-indigo-400" />
+              <Sparkles size={28} className="text-[#D4654A] dark:text-[#E8806A]" />
             </div>
           </div>
           <AnimatePresence mode="wait">
@@ -135,7 +135,7 @@ export default function QuizPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-lg font-medium text-gray-700 dark:text-gray-300"
+              className="text-lg font-medium text-gray-500 dark:text-gray-400"
             >
               {ANALYZING_STEPS[analyzingStep]}
             </motion.p>
@@ -148,11 +148,14 @@ export default function QuizPage() {
   // Intro screen
   if (showIntro) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center hero-gradient relative overflow-hidden">
+      <div
+        className="min-h-[calc(100vh-4rem)] flex items-center justify-center relative overflow-hidden"
+        style={{ background: "#FAF8F5" }}
+      >
         <div className="w-full max-w-lg mx-auto px-4 py-12 text-center relative z-10">
-          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl p-10">
-            <Sparkles size={36} className="text-indigo-500 mx-auto mb-6" />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">
+          <div className="bg-white dark:bg-slate-800 rounded-[20px] border border-black/[0.06] dark:border-slate-700 shadow-xl p-10">
+            <Sparkles size={36} className="text-[#D4654A] mx-auto mb-6" />
+            <h1 className="text-3xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display">
               Creator Archetype Quiz
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">
@@ -166,7 +169,7 @@ export default function QuizPage() {
             <div className="space-y-3">
               <button
                 onClick={() => setShowIntro(false)}
-                className="group w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 dark:shadow-indigo-900/30"
+                className="group w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#D4654A] text-white font-semibold text-lg hover:bg-[#C05A42] transition-all shadow-xl shadow-[#D4654A]/20 dark:shadow-[#D4654A]/10"
               >
                 {answers.length > 0 ? "Continue Quiz" : "Start Quiz"}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -203,18 +206,14 @@ export default function QuizPage() {
     );
   }
 
-  // Dynamic background based on progress
-  const bgHue = 240 - progressPercent * 0.3;
-  const bgSat = 60 + progressPercent * 0.3;
-
   return (
     <div
       className="min-h-[calc(100vh-4rem)] flex items-center justify-center transition-colors duration-700"
-      style={{ background: `linear-gradient(180deg, hsl(${bgHue}, ${bgSat}%, 97%) 0%, hsl(220, 40%, 96%) 100%)` }}
+      style={{ background: "#FAF8F5" }}
     >
       <div className="w-full max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <h1 className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
+          <h1 className="text-sm font-semibold text-[#D4654A] dark:text-[#E8806A] uppercase tracking-wider mb-2 font-display">
             Creator Archetype Quiz
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
@@ -222,7 +221,7 @@ export default function QuizPage() {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg p-8 md:p-10">
+        <div className="bg-white dark:bg-slate-800 rounded-[20px] border border-black/[0.06] dark:border-slate-700 shadow-lg p-8 md:p-10">
           <QuizCard
             question={question}
             value={currentAnswer}
@@ -236,7 +235,7 @@ export default function QuizPage() {
             <button
               onClick={handlePrev}
               disabled={currentQuestion === 0}
-              className="group inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="group inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Go to previous question"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
@@ -245,7 +244,7 @@ export default function QuizPage() {
             <button
               onClick={handleNext}
               disabled={!currentAnswer || isSubmitting}
-              className="group inline-flex items-center gap-1.5 px-8 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 dark:shadow-indigo-900/30"
+              className="group inline-flex items-center gap-1.5 px-8 py-2.5 rounded-xl bg-[#D4654A] text-white text-sm font-semibold hover:bg-[#C05A42] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-[#D4654A]/20 dark:shadow-[#D4654A]/10"
               aria-label={isLastQuestion && allAnswered ? "Submit quiz and see results" : "Go to next question"}
             >
               {isLastQuestion && allAnswered ? "See Results" : "Next"}

@@ -8,22 +8,20 @@ interface StatCardProps {
   color?: string;
 }
 
-export default function StatCard({ label, value, icon, trend, color = "#6366f1" }: StatCardProps) {
+export default function StatCard({ label, value, icon, trend, color = "#D4654A" }: StatCardProps) {
   return (
-    <div className="relative p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-      <div className="h-1 absolute top-0 left-0 right-0" style={{ backgroundColor: color }} />
-      <div className="flex items-center justify-between mb-4">
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}15`, color, boxShadow: `0 0 0 3px ${color}08` }}>
-          {icon}
-        </div>
-        {trend && (
-          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full">
-            {trend}
-          </span>
-        )}
+    <div className="relative p-6 rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] text-center">
+      <div className="h-[3px] absolute top-0 left-0 right-0" style={{ backgroundColor: color }} />
+      <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: `${color}10`, color }}>
+        {icon}
       </div>
-      <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">{value}</p>
-      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">{label}</p>
+      <p className="text-3xl font-extrabold text-[#1A1A2E] dark:text-gray-100 tracking-tight">{value}</p>
+      <p className="text-sm font-medium text-gray-400 dark:text-gray-500 mt-1">{label}</p>
+      {trend && (
+        <span className="inline-block mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-lg">
+          {trend}
+        </span>
+      )}
     </div>
   );
 }

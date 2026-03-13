@@ -27,9 +27,15 @@ export default function LoginPage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] flex">
       {/* Left branding panel — hidden on mobile */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden hero-gradient items-center justify-center p-12">
+      <div
+        className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center p-12"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%), #FAF8F5",
+        }}
+      >
         <div className="relative z-10 max-w-md">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display leading-tight">
+          <h2 className="text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display leading-tight">
             Discover Your Creator Archetype
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
@@ -40,8 +46,8 @@ export default function LoginPage() {
             {ARCHETYPE_NAMES.slice(0, 6).map((name) => (
               <div
                 key={name}
-                className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/70 dark:bg-slate-800/60 shadow-md"
-                style={{ border: `2px solid ${ARCHETYPES[name].color}40`, boxShadow: `0 4px 12px ${ARCHETYPES[name].color}15` }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/70 dark:bg-slate-800/60 shadow-[0_2px_16px_rgba(0,0,0,0.04)]"
+                style={{ border: `1px solid rgba(0,0,0,0.06)` }}
               >
                 <ArchetypeIcon name={name} size={20} color={ARCHETYPES[name].color} />
               </div>
@@ -70,20 +76,26 @@ export default function LoginPage() {
       </div>
 
       {/* Right auth panel */}
-      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-slate-900 p-4">
+      <div className="flex-1 flex items-center justify-center bg-[#FAF8F5] dark:bg-slate-900 p-4">
         <div className="w-full max-w-md">
           {/* Mobile gradient header */}
-          <div className="lg:hidden hero-gradient rounded-t-3xl p-6 text-center mb-0">
-            <Sparkles size={28} className="text-indigo-500 mx-auto mb-3" />
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 font-display">
+          <div
+            className="lg:hidden rounded-t-3xl p-6 text-center mb-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%), #FAF8F5",
+            }}
+          >
+            <Sparkles size={28} className="text-[#D4654A] mx-auto mb-3" />
+            <h2 className="text-xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display">
               Discover Your Creator Archetype
             </h2>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 lg:rounded-3xl rounded-b-3xl lg:rounded-t-3xl border border-gray-100 dark:border-slate-700 shadow-lg p-8">
+          <div className="bg-white dark:bg-slate-800 lg:rounded-3xl rounded-b-3xl lg:rounded-t-3xl border border-black/[0.06] dark:border-slate-700 shadow-[0_2px_16px_rgba(0,0,0,0.04)] p-8">
             <div className="text-center mb-8 hidden lg:block">
-              <Sparkles size={32} className="text-indigo-500 mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+              <Sparkles size={32} className="text-[#D4654A] mx-auto mb-4" />
+              <h1 className="text-2xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">
                 Welcome to ArchetypeConnect
               </h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -91,7 +103,7 @@ export default function LoginPage() {
               </p>
             </div>
             <div className="text-center mb-8 lg:hidden">
-              <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Sign In</h1>
+              <h1 className="text-xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-1">Sign In</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">Save your results and join meetings.</p>
             </div>
 
@@ -100,7 +112,7 @@ export default function LoginPage() {
               <button
                 onClick={() => handleOAuth("github")}
                 disabled={loading !== null}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 disabled:opacity-50 transition-colors"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-black/[0.06] dark:border-slate-600 bg-white dark:bg-slate-700 hover:bg-[#FEF0EC] dark:hover:bg-slate-600 disabled:opacity-50 transition-colors"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -112,7 +124,7 @@ export default function LoginPage() {
               <button
                 onClick={() => handleOAuth("google")}
                 disabled={loading !== null}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 disabled:opacity-50 transition-colors"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-black/[0.06] dark:border-slate-600 bg-white dark:bg-slate-700 hover:bg-[#FEF0EC] dark:hover:bg-slate-600 disabled:opacity-50 transition-colors"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -128,7 +140,7 @@ export default function LoginPage() {
 
             {/* Divider */}
             <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200 dark:border-slate-600" /></div>
+              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-black/[0.06] dark:border-slate-600" /></div>
               <div className="relative flex justify-center text-sm">
                 <span className="bg-white dark:bg-slate-800 px-4 text-gray-400 dark:text-gray-500">or continue as guest</span>
               </div>
@@ -141,13 +153,13 @@ export default function LoginPage() {
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="Your name (optional)"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 outline-none transition-all text-gray-900 dark:text-gray-100 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                className="w-full px-4 py-3 rounded-xl border border-black/[0.06] dark:border-slate-600 bg-white dark:bg-slate-700 focus:border-[#D4654A] focus:ring-2 focus:ring-[#FEF0EC] dark:focus:ring-[#D4654A]/20 outline-none transition-all text-[#1A1A2E] dark:text-gray-100 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 aria-label="Guest name"
               />
               <button
                 type="submit"
                 disabled={loading !== null}
-                className="w-full py-3 rounded-xl bg-gray-900 dark:bg-slate-600 text-white text-sm font-semibold hover:bg-gray-800 dark:hover:bg-slate-500 disabled:opacity-50 transition-colors"
+                className="w-full py-3 rounded-xl bg-[#D4654A] text-white text-sm font-semibold hover:bg-[#C05A42] disabled:opacity-50 transition-colors"
               >
                 {loading === "guest" ? "Creating profile..." : "Continue as Guest"}
               </button>

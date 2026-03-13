@@ -42,10 +42,16 @@ export default async function GroupDetailPage({ params }: Props) {
   const archetype = ARCHETYPES[group.archetype as ArchetypeName];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
+    <div
+      className="min-h-screen dark:bg-slate-900 py-12"
+      style={{
+        background:
+          "radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%), #FAF8F5",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Group Header */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm p-8 md:p-12 mb-8 overflow-hidden relative">
+        <div className="bg-white dark:bg-slate-800 rounded-[20px] border border-black/[0.06] dark:border-slate-700 shadow-[0_2px_16px_rgba(0,0,0,0.04)] p-8 md:p-12 mb-8 overflow-hidden relative">
           <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: archetype.color }} />
           <div className="flex flex-col md:flex-row items-start gap-6">
             <div
@@ -56,7 +62,8 @@ export default async function GroupDetailPage({ params }: Props) {
               <ArchetypeIcon name={group.archetype as ArchetypeName} size={36} color={archetype.color} />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2 font-display">{group.name}</h1>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Group</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-2 font-display">{group.name}</h1>
               <p className="text-gray-500 dark:text-gray-400 text-lg mb-4 max-w-2xl">{archetype.description}</p>
               <div className="flex flex-wrap gap-4">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{members.length} member{members.length !== 1 ? "s" : ""}</span>
@@ -68,7 +75,7 @@ export default async function GroupDetailPage({ params }: Props) {
                 </div>
               </div>
             </div>
-            <a href="/meetings/create" className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 dark:shadow-indigo-900/30 shrink-0">
+            <a href="/meetings/create" className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4654A] text-white font-semibold text-sm hover:bg-[#C05A42] transition-colors shadow-[0_2px_16px_rgba(0,0,0,0.04)] shrink-0">
               <Plus size={16} /> Create Meeting
             </a>
           </div>
@@ -77,21 +84,22 @@ export default async function GroupDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Members */}
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">Members</h2>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Community</p>
+            <h2 className="text-xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display">Members</h2>
             {members.length === 0 ? (
-              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-12 text-center">
+              <div className="bg-white dark:bg-slate-800 rounded-[20px] border border-black/[0.06] dark:border-slate-700 shadow-[0_2px_16px_rgba(0,0,0,0.04)] p-12 text-center">
                 <p className="text-gray-400 dark:text-gray-500 mb-4">No members yet.</p>
-                <a href="/quiz" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Take the quiz to join this group &rarr;</a>
+                <a href="/quiz" className="text-[#D4654A] dark:text-[#E8806A] font-medium hover:underline">Take the quiz to join this group &rarr;</a>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {members.map((member) => (
-                  <a key={member.id} href={`/profile/${member.id}`} className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all">
+                  <a key={member.id} href={`/profile/${member.id}`} className="flex items-center gap-4 p-4 rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 hover:shadow-[0_2px_16px_rgba(0,0,0,0.04)] transition-all">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold text-white shrink-0" style={{ backgroundColor: archetype.color }} aria-hidden="true">
                       {(member.name ?? "A").charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">
-                      <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">{member.name ?? "Anonymous"}</p>
+                      <p className="font-semibold text-[#1A1A2E] dark:text-gray-100 truncate">{member.name ?? "Anonymous"}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{member.identityName ?? ""}</p>
                     </div>
                   </a>
@@ -102,17 +110,18 @@ export default async function GroupDetailPage({ params }: Props) {
 
           {/* Meetings Sidebar */}
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">Meetings</h2>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Schedule</p>
+            <h2 className="text-xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display">Meetings</h2>
             {meetings.length === 0 ? (
-              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-8 text-center">
+              <div className="bg-white dark:bg-slate-800 rounded-[20px] border border-black/[0.06] dark:border-slate-700 shadow-[0_2px_16px_rgba(0,0,0,0.04)] p-8 text-center">
                 <p className="text-gray-400 dark:text-gray-500 mb-4">No meetings yet.</p>
-                <a href="/meetings/create" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Create the first meeting &rarr;</a>
+                <a href="/meetings/create" className="text-[#D4654A] dark:text-[#E8806A] font-medium hover:underline">Create the first meeting &rarr;</a>
               </div>
             ) : (
               <div className="space-y-4">
                 {meetings.map((meeting) => (
-                  <div key={meeting.id} className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{meeting.title}</p>
+                  <div key={meeting.id} className="p-4 rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+                    <p className="font-semibold text-[#1A1A2E] dark:text-gray-100 text-sm">{meeting.title}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       <time dateTime={meeting.dateTime.toISOString()}>
                         {meeting.dateTime.toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
