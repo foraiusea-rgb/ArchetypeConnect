@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-primary-light: #818cf8;
+  --color-primary-dark: #4f46e5;
+  --color-secondary: #0ea5e9;
+  --color-accent: #f59e0b;
+  --color-surface: #f8fafc;
+  --color-surface-dark: #0f172a;
+  --color-card: #ffffff;
+  --color-card-dark: #1e293b;
+  --font-display: "Inter", system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-display);
+  background: var(--color-surface);
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.2); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #0ea5e9, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #ede9fe 0%, #e0f2fe 50%, #fce7f3 100%);
+}

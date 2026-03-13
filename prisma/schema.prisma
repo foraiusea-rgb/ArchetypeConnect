@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String
+  email          String?   @unique
+  coreArchetype  String
+  balanceArchetype String
+  inverseArchetype String
+  identityName   String
+  identityDesc   String
+  scores         String    // JSON string of archetype scores
+  rarity         Float     @default(5.0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  hostedMeetings  Meeting[]       @relation("MeetingHost")
+  participations  Participant[]
+}
+
+model Meeting {
+  id               String        @id @default(cuid())
+  title            String
+  description      String
+  hostId           String
+  host             User          @relation("MeetingHost", fields: [hostId], references: [id])
+  dateTime         DateTime
+  duration         Int           @default(60)
+  type             String        // peer | collaboration | mastermind
+  participantLimit Int           @default(10)
+  groupSlug        String
+  createdAt        DateTime      @default(now())
+
+  participants     Participant[]
+}
+
+model Participant {
+  id        String   @id @default(cuid())
+  userId    String
+  meetingId String
+  user      User     @relation(fields: [userId], references: [id])
+  meeting   Meeting  @relation(fields: [meetingId], references: [id])
+  joinedAt  DateTime @default(now())
+
+  @@unique([userId, meetingId])
+}
