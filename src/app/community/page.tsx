@@ -35,29 +35,33 @@ export default async function DashboardPage() {
   const stats = await getStats();
 
   const statCards = [
-    { label: "Total Users", value: stats.totalUsers, icon: <Users size={20} /> },
-    { label: "Quizzes Completed", value: stats.quizCompletedCount, icon: <FileCheck size={20} /> },
-    { label: "Meetings Created", value: stats.totalMeetings, icon: <CalendarDays size={20} /> },
-    { label: "Active Groups", value: stats.archetypeCounts.filter((a) => a._count > 0).length, icon: <Building size={20} /> },
+    { label: "Total Users", value: stats.totalUsers, icon: <Users size={22} />, color: "#6366f1" },
+    { label: "Quizzes Completed", value: stats.quizCompletedCount, icon: <FileCheck size={22} />, color: "#8b5cf6" },
+    { label: "Meetings Created", value: stats.totalMeetings, icon: <CalendarDays size={22} />, color: "#0ea5e9" },
+    { label: "Active Groups", value: stats.archetypeCounts.filter((a) => a._count > 0).length, icon: <Building size={22} />, color: "#059669" },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-2 font-display">Community Stats</h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400">See how archetypes are distributed across the community.</p>
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      {/* Hero Header */}
+      <div className="hero-gradient py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-3 font-display">Community Stats</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-lg">See how archetypes are distributed across the community.</p>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {statCards.map((card) => (
-            <div key={card.label} className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-3">
+            <div key={card.label} className="relative p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+              <div className="h-1 absolute top-0 left-0 right-0" style={{ backgroundColor: card.color }} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${card.color}15`, color: card.color, boxShadow: `0 0 0 3px ${card.color}08` }}>
                 {card.icon}
               </div>
-              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{card.value}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{card.label}</p>
+              <p className="text-4xl font-bold text-gray-900 dark:text-gray-100">{card.value}</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">{card.label}</p>
             </div>
           ))}
         </div>
@@ -65,50 +69,63 @@ export default async function DashboardPage() {
         {/* Most / Rarest */}
         {(stats.mostCommon || stats.rarest) && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {stats.mostCommon && (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
-                <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Most Common Archetype</h3>
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${ARCHETYPES[stats.mostCommon as ArchetypeName]?.color ?? "#6366f1"}15` }}>
-                    <ArchetypeIcon name={stats.mostCommon as ArchetypeName} size={28} color={ARCHETYPES[stats.mostCommon as ArchetypeName]?.color} />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.mostCommon}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{stats.archetypeCounts[0]?._count ?? 0} creators</p>
-                  </div>
-                </div>
-              </div>
-            )}
-            {stats.rarest && stats.rarest !== stats.mostCommon && (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
-                <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Rarest Archetype</h3>
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${ARCHETYPES[stats.rarest as ArchetypeName]?.color ?? "#6366f1"}15` }}>
-                    <ArchetypeIcon name={stats.rarest as ArchetypeName} size={28} color={ARCHETYPES[stats.rarest as ArchetypeName]?.color} />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.rarest}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{stats.archetypeCounts[stats.archetypeCounts.length - 1]?._count ?? 0} creators</p>
+            {stats.mostCommon && (() => {
+              const mcColor = ARCHETYPES[stats.mostCommon as ArchetypeName]?.color ?? "#6366f1";
+              return (
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+                  <div className="h-1 absolute top-0 left-0 right-0" style={{ backgroundColor: mcColor }} />
+                  <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Most Common Archetype</h3>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${mcColor}20`, boxShadow: `0 0 0 3px ${mcColor}08` }}>
+                      <ArchetypeIcon name={stats.mostCommon as ArchetypeName} size={30} color={mcColor} />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.mostCommon}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{stats.archetypeCounts[0]?._count ?? 0} creators</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
+            {stats.rarest && stats.rarest !== stats.mostCommon && (() => {
+              const rColor = ARCHETYPES[stats.rarest as ArchetypeName]?.color ?? "#6366f1";
+              return (
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+                  <div className="h-1 absolute top-0 left-0 right-0" style={{ backgroundColor: rColor }} />
+                  <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Rarest Archetype</h3>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${rColor}20`, boxShadow: `0 0 0 3px ${rColor}08` }}>
+                      <ArchetypeIcon name={stats.rarest as ArchetypeName} size={30} color={rColor} />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.rarest}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{stats.archetypeCounts[stats.archetypeCounts.length - 1]?._count ?? 0} creators</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 
         {/* Empty state */}
         {stats.quizCompletedCount === 0 && (
-          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm p-16 text-center mb-12">
-            <BarChart3 size={48} className="text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">No quiz data yet</h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-6">Statistics will appear here once creators start taking the quiz.</p>
-            <a href="/quiz" className="inline-flex px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors">Be the First</a>
+          <div className="relative rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg p-16 text-center mb-12 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-50/80 via-white to-indigo-50/60 dark:from-violet-950/30 dark:via-slate-800 dark:to-indigo-950/20" />
+            <div className="relative">
+              <div className="w-20 h-20 rounded-2xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center mx-auto mb-5">
+                <BarChart3 size={36} className="text-violet-500 dark:text-violet-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 font-display">No quiz data yet</h2>
+              <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto">Statistics will appear here once creators start taking the quiz.</p>
+              <a href="/quiz" className="inline-flex px-7 py-3.5 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-300/40 hover:shadow-xl hover:-translate-y-0.5">Be the First</a>
+            </div>
           </div>
         )}
 
         {/* Distribution */}
         {stats.quizCompletedCount > 0 && (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-8">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-md p-8">
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 font-display">Archetype Distribution</h2>
             <div className="space-y-4">
               {ARCHETYPE_NAMES.map((name) => {
@@ -117,14 +134,14 @@ export default async function DashboardPage() {
                 const archetype = ARCHETYPES[name];
                 return (
                   <div key={name} className="flex items-center gap-3">
-                    <div className="w-7 flex justify-center shrink-0">
-                      <ArchetypeIcon name={name} size={18} color={archetype.color} />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${archetype.color}12` }}>
+                      <ArchetypeIcon name={name} size={16} color={archetype.color} />
                     </div>
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 w-36 shrink-0">{name}</span>
-                    <div className="flex-1 h-5 bg-gray-50 dark:bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuenow={count} aria-valuemax={stats.quizCompletedCount} aria-label={`${name}: ${count} creators`}>
-                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${Math.max(pct, count > 0 ? 2 : 0)}%`, backgroundColor: archetype.color }} />
+                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 w-36 shrink-0">{name}</span>
+                    <div className="flex-1 h-7 bg-gray-50 dark:bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuenow={count} aria-valuemax={stats.quizCompletedCount} aria-label={`${name}: ${count} creators`}>
+                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${Math.max(pct, count > 0 ? 2 : 0)}%`, backgroundColor: archetype.color, boxShadow: `0 0 8px ${archetype.color}40` }} />
                     </div>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 w-16 text-right">{count} ({pct.toFixed(0)}%)</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400 w-20 text-right">{count} ({pct.toFixed(0)}%)</span>
                   </div>
                 );
               })}

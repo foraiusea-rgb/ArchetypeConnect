@@ -22,8 +22,8 @@ export default function MeetingCard({ meeting, onJoin }: MeetingCardProps) {
   const isPast = date < new Date();
 
   return (
-    <div className={`rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${meeting.cancelled ? "opacity-60" : ""}`}>
-      <div className="h-1 w-full" style={{ backgroundColor: typeInfo.stripe }} />
+    <div className={`rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1 ${meeting.cancelled ? "opacity-60" : ""}`}>
+      <div className="h-1.5 w-full" style={{ backgroundColor: typeInfo.stripe }} />
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${typeInfo.bg} ${typeInfo.color}`}>
@@ -58,7 +58,7 @@ export default function MeetingCard({ meeting, onJoin }: MeetingCardProps) {
             {meeting.hostName && (<>Hosted by <span className="font-medium text-gray-600 dark:text-gray-300">{meeting.hostName}</span></>)}
           </p>
           {onJoin && !isFull && !isPast && !meeting.cancelled && (
-            <button onClick={onJoin} className="group/btn inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors">
+            <button onClick={onJoin} className="group/btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 dark:shadow-indigo-900/30 hover:shadow-lg">
               Join
               <ArrowRight size={14} className="opacity-0 -translate-x-1 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all" />
             </button>

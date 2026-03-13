@@ -40,10 +40,10 @@ export default function LoginPage() {
             {ARCHETYPE_NAMES.slice(0, 6).map((name) => (
               <div
                 key={name}
-                className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/60 dark:bg-slate-800/60 shadow-sm"
-                style={{ border: `1px solid ${ARCHETYPES[name].color}30` }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/70 dark:bg-slate-800/60 shadow-md"
+                style={{ border: `2px solid ${ARCHETYPES[name].color}40`, boxShadow: `0 4px 12px ${ARCHETYPES[name].color}15` }}
               >
-                <ArchetypeIcon name={name} size={18} color={ARCHETYPES[name].color} />
+                <ArchetypeIcon name={name} size={20} color={ARCHETYPES[name].color} />
               </div>
             ))}
           </div>
@@ -59,10 +59,10 @@ export default function LoginPage() {
             return (
               <div
                 key={name}
-                className="absolute opacity-[0.1] animate-float"
+                className="absolute opacity-[0.25] animate-float"
                 style={{ left: `${pos.x}%`, top: `${pos.y}%`, animationDelay: `${i * 0.7}s` }}
               >
-                <ArchetypeIcon name={name} size={28} color={ARCHETYPES[name].color} />
+                <ArchetypeIcon name={name} size={36} color={ARCHETYPES[name].color} />
               </div>
             );
           })}

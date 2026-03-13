@@ -26,8 +26,8 @@ export default function ArchetypeCard({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm" style={{ borderLeft: `3px solid ${archetype.color}` }}>
-        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${archetype.color}15` }}>
+      <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md" style={{ borderLeft: `4px solid ${archetype.color}` }}>
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${archetype.color}20` }}>
           <ArchetypeIcon name={name} size={18} color={archetype.color} />
         </div>
         <div className="flex-1 min-w-0">
@@ -44,11 +44,11 @@ export default function ArchetypeCard({
   }
 
   return (
-    <div className="group relative p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1" style={{ borderLeft: `3px solid ${archetype.color}` }}>
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(135deg, ${archetype.color}10, ${archetype.color}20)` }} />
+    <div className="group relative p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style={{ borderLeft: `4px solid ${archetype.color}` }}>
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: `linear-gradient(135deg, ${archetype.color}08, ${archetype.color}18)` }} />
       <div className="relative">
         <div className="flex items-start justify-between mb-4">
-          <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${archetype.color}20, ${archetype.color}10)`, border: `1px solid ${archetype.color}20` }}>
+          <div className="w-16 h-16 rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${archetype.color}30, ${archetype.color}15)`, border: `1px solid ${archetype.color}25`, boxShadow: `0 0 0 3px ${archetype.color}08` }}>
             <ArchetypeIcon name={name} size={24} color={archetype.color} />
           </div>
           {label && (
@@ -72,8 +72,8 @@ export default function ArchetypeCard({
               <span>Score</span>
               <span>{score} / {maxScore}</span>
             </div>
-            <div className="h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
-              <div className="h-full rounded-full transition-all duration-700 ease-out" style={{ width: `${percentage}%`, background: `linear-gradient(90deg, ${archetype.color}88, ${archetype.color})`, boxShadow: `0 0 8px ${archetype.color}40` }} />
+            <div className="h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div className="h-full rounded-full transition-all duration-700 ease-out" style={{ width: `${percentage}%`, background: `linear-gradient(90deg, ${archetype.color}aa, ${archetype.color})`, boxShadow: `0 0 12px ${archetype.color}50` }} />
             </div>
           </div>
         )}

@@ -12,14 +12,14 @@ export default function GroupCard({ group }: GroupCardProps) {
   return (
     <a
       href={`/groups/${group.slug}`}
-      className="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+      className="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
     >
-      <div className="h-1 w-full" style={{ backgroundColor: group.color }} />
+      <div className="h-1.5 w-full" style={{ backgroundColor: group.color }} />
       <div className="p-6">
         <div className="flex items-start gap-4">
           <div
             className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-            style={{ backgroundColor: `${group.color}15` }}
+            style={{ backgroundColor: `${group.color}20`, boxShadow: `0 0 0 3px ${group.color}08` }}
           >
             <ArchetypeIcon name={group.archetype as ArchetypeName} size={24} color={group.color} />
           </div>
@@ -36,7 +36,7 @@ export default function GroupCard({ group }: GroupCardProps) {
               </span>
               <span
                 className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
-                style={{ backgroundColor: `${group.color}15`, color: group.color }}
+                style={{ backgroundColor: `${group.color}18`, color: group.color, fontWeight: 700 }}
               >
                 {group.archetype}
               </span>

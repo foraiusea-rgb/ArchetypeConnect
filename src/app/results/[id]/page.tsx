@@ -106,23 +106,29 @@ export default function ResultsPage() {
   const inverseArch = ARCHETYPES[result.identity.chord.inverse as ArchetypeName];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       {showConfetti && coreArch && balanceArch && inverseArch && (
         <Confetti colors={[coreArch.color, balanceArch.color, inverseArch.color]} />
       )}
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Header — identity name as hero */}
-        <AnimateIn className="text-center mb-10">
-          <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3">
-            Your Creator Identity
-          </p>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 font-display">
-            {result.identity.name}
-          </h1>
-          <p className="text-lg text-gray-500 dark:text-gray-400 mt-2">
-            {result.identity.description}
-          </p>
-        </AnimateIn>
+
+      {/* Hero Header */}
+      <div className="hero-gradient py-16 md:py-20">
+        <div className="max-w-4xl mx-auto px-4">
+          <AnimateIn className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: coreArch?.color ?? "#6366f1" }}>
+              Your Creator Identity
+            </p>
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-gray-100 font-display">
+              {result.identity.name}
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mt-3 max-w-lg mx-auto">
+              {result.identity.description}
+            </p>
+          </AnimateIn>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-10">
 
         {/* Identity Card */}
         <AnimateIn delay={0.2} className="max-w-lg mx-auto mb-16">
@@ -148,29 +154,30 @@ export default function ResultsPage() {
 
         {/* All Scores Bar Chart */}
         <AnimateIn delay={0.4} className="mb-16">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-8">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-6">Full Score Distribution</h3>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-lg p-8">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 font-display">Full Score Distribution</h3>
             <div className="space-y-3">
               {result.scores.map((score, i) => {
                 const archetype = ARCHETYPES[score.name];
                 const pct = maxScore > 0 ? (score.score / maxScore) * 100 : 0;
                 return (
                   <div key={score.name} className="flex items-center gap-3">
-                    <div className="w-7 flex justify-center shrink-0">
-                      <ArchetypeIcon name={score.name} size={18} color={archetype?.color} />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${archetype?.color ?? "#6366f1"}12` }}>
+                      <ArchetypeIcon name={score.name} size={16} color={archetype?.color} />
                     </div>
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 w-32 shrink-0">{score.name}</span>
-                    <div className="flex-1 h-6 bg-gray-50 dark:bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuenow={score.score} aria-valuemax={maxScore} aria-label={`${score.name} score`}>
+                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 w-32 shrink-0">{score.name}</span>
+                    <div className="flex-1 h-7 bg-gray-50 dark:bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuenow={score.score} aria-valuemax={maxScore} aria-label={`${score.name} score`}>
                       <div
                         className="h-full rounded-full"
                         style={{
                           width: `${pct}%`,
                           backgroundColor: archetype?.color ?? "#6366f1",
+                          boxShadow: `0 0 10px ${archetype?.color ?? "#6366f1"}40`,
                           animation: `grow-bar 0.8s ease-out ${i * 0.08}s both`,
                         }}
                       />
                     </div>
-                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400 w-10 text-right">{score.score}</span>
+                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400 w-10 text-right">{score.score}</span>
                   </div>
                 );
               })}
@@ -182,25 +189,27 @@ export default function ResultsPage() {
         <AnimateIn delay={0.5} className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">What&apos;s Next?</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8">Join your archetype group and start connecting with compatible creators.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto">
             <a
               href={`/groups/${result.identity.chord.core.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+              className="group p-7 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden relative"
             >
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mx-auto mb-3">
-                <Users size={22} className="text-indigo-600 dark:text-indigo-400" />
+              <div className="h-1 absolute top-0 left-0 right-0" style={{ backgroundColor: coreArch?.color ?? "#6366f1" }} />
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${coreArch?.color ?? "#6366f1"}15`, boxShadow: `0 0 0 3px ${coreArch?.color ?? "#6366f1"}08` }}>
+                <Users size={24} style={{ color: coreArch?.color ?? "#6366f1" }} />
               </div>
-              <p className="font-bold text-gray-900 dark:text-gray-100">Join {result.identity.chord.core} Group</p>
+              <p className="font-bold text-gray-900 dark:text-gray-100 text-lg">Join {result.identity.chord.core} Group</p>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Meet creators like you</p>
             </a>
             <a
               href="/meetings"
-              className="group p-6 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+              className="group p-7 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden relative"
             >
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mx-auto mb-3">
-                <CalendarDays size={22} className="text-indigo-600 dark:text-indigo-400" />
+              <div className="h-1 absolute top-0 left-0 right-0 bg-sky-500" />
+              <div className="w-14 h-14 rounded-xl bg-sky-50 dark:bg-sky-900/30 flex items-center justify-center mx-auto mb-3" style={{ boxShadow: "0 0 0 3px rgba(14,165,233,0.08)" }}>
+                <CalendarDays size={24} className="text-sky-500" />
               </div>
-              <p className="font-bold text-gray-900 dark:text-gray-100">Browse Meetings</p>
+              <p className="font-bold text-gray-900 dark:text-gray-100 text-lg">Browse Meetings</p>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Find events to join</p>
             </a>
           </div>

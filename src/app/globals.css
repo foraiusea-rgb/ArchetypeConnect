@@ -155,9 +155,38 @@ html.dark .glass-card {
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #ede9fe 0%, #e0f2fe 50%, #fce7f3 100%);
+  background: linear-gradient(135deg, #c7d2fe 0%, #bae6fd 35%, #fbcfe8 70%, #e9d5ff 100%);
 }
 
 html.dark .hero-gradient {
-  background: linear-gradient(135deg, #1e1b4b 0%, #0c4a6e 50%, #831843 100%);
+  background: linear-gradient(135deg, #312e81 0%, #1e3a5f 35%, #5b2150 70%, #3b1d6e 100%);
+}
+
+/* ---- Card & section utilities ---- */
+
+.card-elevated {
+  background: white;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-elevated:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+html.dark .card-elevated {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+html.dark .card-elevated:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+.section-accent {
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 50%, #f8fafc 100%);
+}
+html.dark .section-accent {
+  background: linear-gradient(180deg, #0f172a 0%, #1a1c3a 50%, #0f172a 100%);
 }
