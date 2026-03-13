@@ -4,7 +4,7 @@ import { ARCHETYPES, ARCHETYPE_NAMES } from "@/lib/archetypes";
 import { ArchetypeName } from "@/types";
 import ArchetypeIcon from "@/components/ArchetypeIcon";
 import AnimateIn from "@/components/AnimateIn";
-import { ArrowRight, Target, Dna, Users, Pen, Palette as PaletteIcon, Cog, BookOpen, BarChart3, Rocket, Microscope, Video, Sparkles } from "lucide-react";
+import { ArrowRight, Pen, Palette as PaletteIcon, Cog, BookOpen, BarChart3, Rocket, Microscope, Video } from "lucide-react";
 
 const STEP_COLORS = ["#D4654A", "#3D8B7A", "#C4A35A"];
 
@@ -13,30 +13,27 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <section className="relative overflow-hidden" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(196,163,90,0.04), transparent 60%), #FAF8F5" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
-          <div className="text-center max-w-3xl mx-auto relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FEF0EC] text-sm font-bold text-[#D4654A] mb-8 animate-fade-in tracking-wide uppercase text-xs">
-              <Sparkles size={14} />
-              Personality-Based Creator Platform
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+          <div className="text-center relative z-10">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FEF0EC] text-[0.8rem] font-semibold text-[#D4654A] mb-8 animate-fade-in tracking-[0.08em] uppercase">
+              ✦ Personality-Based Creator Platform
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-slide-up font-display text-[#1A1A2E] dark:text-gray-100">
-              Discover Your{" "}
-              <span className="text-[#D4654A]">Creator</span>{" "}Archetype
+            <h1 className="font-display font-bold animate-slide-up text-[#1A1A2E] dark:text-gray-100 leading-[1.08] tracking-[-0.03em]" style={{ fontSize: "clamp(3.5rem, 7vw, 5.5rem)", maxWidth: "750px", marginLeft: "auto", marginRight: "auto", marginBottom: "1.5rem" }}>
+              Discover Your<br />Creator <span className="text-[#D4654A]">Archetype</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-500 dark:text-gray-300 mb-10 leading-relaxed animate-slide-up max-w-2xl mx-auto">
+            <p className="text-[1.2rem] text-gray-500 dark:text-gray-300 mb-10 leading-[1.7] animate-slide-up max-w-[480px] mx-auto">
               12 questions reveal your unique creator chord — your Core drive, Balance strength, and Inverse edge.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
               <a
                 href="/quiz"
-                className="group inline-flex items-center justify-center gap-2 px-10 py-5 rounded-2xl bg-[#D4654A] text-white font-semibold text-lg hover:bg-[#C05A42] transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
+                className="group inline-flex items-center justify-center gap-2 px-10 py-4 rounded-[14px] bg-[#D4654A] text-white font-semibold text-base hover:bg-[#C05A42] transition-all shadow-sm hover:shadow-[0_8px_24px_rgba(212,101,74,0.3)] hover:-translate-y-0.5"
               >
-                Take the Quiz
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                Take the Quiz →
               </a>
               <a
                 href="/about"
-                className="px-10 py-5 rounded-2xl border-2 border-black/[0.08] dark:border-slate-600 text-[#1A1A2E] dark:text-gray-100 font-semibold text-lg hover:border-[#1A1A2E] dark:hover:border-gray-400 transition-all hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-[14px] border-[1.5px] border-black/[0.12] dark:border-slate-600 text-[#1A1A2E] dark:text-gray-100 font-medium text-base hover:border-[#1A1A2E] dark:hover:border-gray-400 hover:bg-white transition-all"
               >
                 How It Works
               </a>
@@ -58,32 +55,32 @@ export default function HomePage() {
       </section>
 
       {/* Identity Preview */}
-      <section className="py-20 bg-[#FAF8F5] dark:bg-slate-900">
+      <section className="pt-0 pb-20 bg-[#FAF8F5] dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimateIn className="text-center mb-10">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Your Result</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+          <AnimateIn className="text-center mb-8">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">Your Result</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               A Name That&apos;s Uniquely Yours
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               Your chord combination generates a one-of-a-kind creator identity.
             </p>
           </AnimateIn>
           <AnimateIn>
-            <div className="max-w-md mx-auto rounded-[28px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden">
-              <div className="h-24 flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.12), rgba(236,72,153,0.10), rgba(20,184,166,0.08))" }}>
-                <ArchetypeIcon name={"Guide"} size={36} color="#7C3AED" />
+            <div className="max-w-[480px] mx-auto rounded-[28px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden">
+              <div className="h-[100px] flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.12), rgba(236,72,153,0.10), rgba(20,184,166,0.08))" }}>
+                <span className="text-[2.5rem] relative z-[1]">🧭</span>
               </div>
-              <div className="px-6 pb-6 pt-4 text-center">
-                <h3 className="text-xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display">The Luminous Pathfinder</h3>
-                <p className="text-sm text-gray-400 mt-1 mb-4">Guide · Artist · Builder</p>
+              <div className="px-8 pb-8 pt-6 text-center">
+                <h3 className="text-2xl font-extrabold text-[#1A1A2E] dark:text-gray-100 mb-1">The Luminous Pathfinder</h3>
+                <p className="text-[0.85rem] text-gray-400 mb-4">Guide · Artist · Builder</p>
                 <div className="flex justify-center gap-2">
                   {[
                     { label: "Core: Guide", color: "#7C3AED" },
                     { label: "Balance: Artist", color: "#8B5CF6" },
                     { label: "Inverse: Builder", color: "#D97706" },
                   ].map((c) => (
-                    <span key={c.label} className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg" style={{ backgroundColor: `${c.color}10`, color: c.color }}>
+                    <span key={c.label} className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold px-3 py-1.5 rounded-[10px]" style={{ backgroundColor: `${c.color}10`, color: c.color }}>
                       <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: c.color }} />
                       {c.label}
                     </span>
@@ -99,30 +96,30 @@ export default function HomePage() {
       <section className="py-24 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">How It Works</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">How It Works</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               Three Steps to Your Identity
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               No sign-up walls. Just answer, discover, connect.
             </p>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto">
             {[
-              { step: "01", icon: <Target size={28} />, title: "Answer 12 Questions", description: "Quick, reflective prompts designed to reveal your creative instincts. No right or wrong answers." },
-              { step: "02", icon: <Dna size={28} />, title: "Get Your Chord", description: "Your Core, Balance, and Inverse archetypes combine into a unique identity name that's yours to claim." },
-              { step: "03", icon: <Users size={28} />, title: "Join Your Group", description: "Connect with creators who share your core archetype. Browse meetings, start conversations." },
+              { step: "01", emoji: "🎵", title: "Answer 12 Questions", description: "Quick, reflective prompts designed to reveal your creative instincts. No right or wrong answers." },
+              { step: "02", emoji: "✨", title: "Get Your Chord", description: "Your Core, Balance, and Inverse archetypes combine into a unique identity name that's yours to claim." },
+              { step: "03", emoji: "👥", title: "Join Your Group", description: "Connect with creators who share your core archetype. Browse meetings, start conversations." },
             ].map((item, i) => (
               <AnimateIn key={item.step} delay={i * 0.15}>
-                <div className="relative rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] h-full">
+                <div className="relative rounded-[28px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:border-black/[0.12] h-full">
                   {/* Big visual area */}
-                  <div className="h-[160px] flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${STEP_COLORS[i]}10, ${STEP_COLORS[i]}04)` }}>
-                    <div className="text-[4rem] font-bold absolute top-2 right-4 opacity-[0.06] text-[#1A1A2E]">{item.step}</div>
-                    <div style={{ color: STEP_COLORS[i] }}>{item.icon}</div>
+                  <div className="h-[180px] flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, ${STEP_COLORS[i]}14, ${STEP_COLORS[i]}06)` }}>
+                    <span className="text-[4rem] relative z-[1]">{item.emoji}</span>
+                    <span className="absolute top-3 right-4 text-[5rem] font-extrabold leading-none opacity-[0.07] text-[#1A1A2E]">{item.step}</span>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">{item.title}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{item.description}</p>
+                  <div className="px-8 pb-8 pt-6">
+                    <h3 className="text-[1.15rem] font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">{item.title}</h3>
+                    <p className="text-[0.9rem] text-gray-500 dark:text-gray-400 leading-[1.65]">{item.description}</p>
                   </div>
                 </div>
               </AnimateIn>
@@ -135,11 +132,11 @@ export default function HomePage() {
       <section className="py-24 bg-[#FAF8F5] dark:bg-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">The System</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">The System</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               Your Creator Chord
             </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               Three archetypes combine to form your unique creative signature.
             </p>
           </AnimateIn>
@@ -150,11 +147,11 @@ export default function HomePage() {
               { key: "I", label: "Inverse", sublabel: "Your Growth Edge", color: "#C4A35A", desc: "The archetype that challenges you. Your biggest potential for creative growth lives here." },
             ].map((item, i) => (
               <AnimateIn key={item.key} delay={i * 0.15}>
-                <div className="p-8 rounded-[20px] border border-transparent h-full text-center transition-all duration-300 hover:-translate-y-1" style={{ background: `${item.color}08`, borderColor: `${item.color}15` }}>
-                  <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: item.color }}>{item.label}</p>
-                  <div className="text-4xl mb-4">{item.key === "C" ? "🎯" : item.key === "B" ? "⚖️" : "🔄"}</div>
-                  <h3 className="text-lg font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">{item.sublabel}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
+                <div className="py-10 px-8 rounded-[28px] border border-transparent h-full text-center transition-all duration-300 hover:-translate-y-1" style={{ background: `${item.color}0F`, borderColor: `${item.color}1F` }}>
+                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] mb-4" style={{ color: item.color }}>{item.label}</p>
+                  <div className="text-[3rem] mb-4">{item.key === "C" ? "🎯" : item.key === "B" ? "⚖️" : "🔄"}</div>
+                  <h3 className="text-[1.2rem] font-bold text-[#1A1A2E] dark:text-gray-100 mb-2">{item.sublabel}</h3>
+                  <p className="text-[0.88rem] text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
                 </div>
               </AnimateIn>
             ))}
@@ -171,11 +168,11 @@ export default function HomePage() {
       <section className="py-24 bg-white dark:bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">For Everyone</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">For Everyone</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               What&apos;s a &ldquo;Creator&rdquo;?
             </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               Not just YouTubers. Anyone who makes things and shares them with the world.
             </p>
           </AnimateIn>
@@ -210,11 +207,11 @@ export default function HomePage() {
       <section id="archetypes" className="py-24" style={{ background: "#F5F1EC" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">The Archetypes</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">The Archetypes</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               12 Ways to Create
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               Each archetype represents a distinct approach to creative work.
             </p>
           </AnimateIn>
@@ -225,25 +222,25 @@ export default function HomePage() {
                 <AnimateIn key={name} delay={i * 0.04}>
                   <a
                     href={`/groups/${name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="group block rounded-[20px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] h-full"
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = `${archetype.color}20`}
+                    className="group block rounded-[28px] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-slate-700 overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] h-full"
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = `${archetype.color}33`}
                     onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)'}
                   >
                     {/* Big visual area */}
-                    <div className="h-[130px] flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${archetype.color}12, ${archetype.color}05)` }}>
+                    <div className="h-[140px] flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${archetype.color}1A, ${archetype.color}0A)` }}>
                       <div className="transition-transform duration-300 group-hover:scale-110">
-                        <ArchetypeIcon name={name} size={36} color={archetype.color} />
+                        <ArchetypeIcon name={name} size={40} color={archetype.color} />
                       </div>
                     </div>
-                    <div className="p-5">
+                    <div className="px-6 pb-6 pt-5">
                       <div className="flex items-center gap-2 mb-1.5">
-                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: archetype.color }} />
-                        <h3 className="text-base font-bold text-[#1A1A2E] dark:text-gray-100">{name}</h3>
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: archetype.color }} />
+                        <h3 className="text-[1.05rem] font-bold text-[#1A1A2E] dark:text-gray-100">{name}</h3>
                       </div>
-                      <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed mb-3 line-clamp-2">{archetype.description}</p>
+                      <p className="text-[0.82rem] text-gray-400 dark:text-gray-500 leading-[1.55] mb-3 line-clamp-2">{archetype.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {archetype.traits.slice(0, 3).map((trait) => (
-                          <span key={trait} className="text-[0.65rem] font-semibold px-2 py-0.5 rounded-md" style={{ backgroundColor: `${archetype.color}08`, color: archetype.color }}>
+                          <span key={trait} className="text-[0.7rem] font-semibold px-2.5 py-0.5 rounded-lg" style={{ backgroundColor: `${archetype.color}14`, color: archetype.color }}>
                             {trait}
                           </span>
                         ))}
@@ -261,11 +258,11 @@ export default function HomePage() {
       <section className="py-24 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn className="text-center mb-14">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-3">Possibilities</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E] dark:text-gray-100 font-display mb-3">
+            <p className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#D4654A] mb-3">Possibilities</p>
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               Example Identities
             </h2>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-[1.05rem] text-gray-400 max-w-[450px] mx-auto leading-relaxed">
               Every chord combination produces a unique identity.
             </p>
           </AnimateIn>
@@ -303,26 +300,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Early Access CTA */}
+      {/* CTA */}
       <section className="py-24 relative overflow-hidden" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,101,74,0.06), transparent 50%), #F5F1EC" }}>
         <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
           <AnimateIn>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#D4654A] mb-4">Early Access</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-[#1A1A2E] dark:text-gray-100 mb-4 font-display">
+            <h2 className="font-display font-bold text-[#1A1A2E] dark:text-gray-100 mb-3" style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", letterSpacing: "-0.02em" }}>
               We&apos;re Building This <span className="text-[#D4654A]">Together</span>
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-3 max-w-xl mx-auto">
+            <p className="text-[1.05rem] text-gray-500 dark:text-gray-400 mb-8 max-w-[400px] mx-auto leading-relaxed">
               Take the quiz, get your identity, and be among the first creators in your archetype group.
-            </p>
-            <p className="text-sm text-gray-400 mb-10">
-              Early members help shape how groups, meetings, and matching work.
             </p>
             <a
               href="/quiz"
-              className="group inline-flex items-center gap-2 px-10 py-5 rounded-2xl bg-[#D4654A] text-white font-semibold text-lg hover:bg-[#C05A42] transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
+              className="inline-flex items-center justify-center px-12 py-[1.1rem] rounded-[14px] bg-[#D4654A] text-white font-semibold text-[1.1rem] hover:bg-[#C05A42] transition-all shadow-sm hover:shadow-[0_8px_24px_rgba(212,101,74,0.3)] hover:-translate-y-0.5"
             >
-              Take the Quiz
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              Take the Quiz →
             </a>
           </AnimateIn>
         </div>
