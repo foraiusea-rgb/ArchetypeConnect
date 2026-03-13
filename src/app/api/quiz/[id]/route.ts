@@ -9,18 +9,31 @@ export async function GET(
     const { id } = await params;
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        scores: { orderBy: { score: "desc" } },
+      },
     });
 
-    if (!user) {
-      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!user || !user.quizCompleted) {
+      return NextResponse.json({ error: "Result not found" }, { status: 404 });
     }
 
-    return NextResponse.json(user);
+    // Return only public-safe fields (no email, no internal IDs)
+    return NextResponse.json({
+      id: user.id,
+      name: user.name,
+      image: user.image,
+      coreArchetype: user.coreArchetype,
+      balanceArchetype: user.balanceArchetype,
+      inverseArchetype: user.inverseArchetype,
+      identityName: user.identityName,
+      identityDesc: user.identityDesc,
+      rarity: user.rarity,
+      scores: user.scores.map((s) => ({ name: s.archetype, score: s.score })),
+      createdAt: user.createdAt,
+    });
   } catch (error) {
     console.error("Quiz get error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch result" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch result" }, { status: 500 });
   }
 }

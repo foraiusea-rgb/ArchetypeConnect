@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import IdentityCard from "@/components/IdentityCard";
 import ArchetypeCard from "@/components/ArchetypeCard";
 import { useQuizStore } from "@/store/quiz-store";
-import { Identity, ArchetypeScore } from "@/types";
+import { ARCHETYPES } from "@/lib/archetypes";
+import { Identity, ArchetypeScore, ArchetypeName } from "@/types";
 
 interface ResultData {
   identity: Identity;
@@ -17,6 +18,7 @@ export default function ResultsPage() {
   const { identity: storeIdentity, scores: storeScores } = useQuizStore();
   const [result, setResult] = useState<ResultData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // First try store data
@@ -28,43 +30,58 @@ export default function ResultsPage() {
 
     // Then try API
     fetch(`/api/quiz/${params.id}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data) {
-          setResult({
-            identity: {
-              name: data.identityName,
-              description: data.identityDesc,
-              chord: {
-                core: data.coreArchetype,
-                balance: data.balanceArchetype,
-                inverse: data.inverseArchetype,
-              },
-              rarity: data.rarity,
-            },
-            scores: JSON.parse(data.scores),
-          });
-        }
+      .then((res) => {
+        if (!res.ok) throw new Error("Result not found");
+        return res.json();
       })
-      .catch(() => {})
+      .then((data) => {
+        // Scores come from normalized ArchetypeScore table
+        const scores: ArchetypeScore[] = (data.scores || []).map(
+          (s: { archetype: string; score: number }) => ({
+            name: s.archetype as ArchetypeName,
+            score: s.score,
+          })
+        );
+
+        setResult({
+          identity: {
+            name: data.identityName,
+            description: data.identityDesc,
+            chord: {
+              core: data.coreArchetype,
+              balance: data.balanceArchetype,
+              inverse: data.inverseArchetype,
+            },
+            rarity: data.rarity,
+          },
+          scores,
+        });
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load results");
+      })
       .finally(() => setLoading(false));
   }, [params.id, storeIdentity, storeScores]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-gray-400">Loading your results...</div>
+        <div className="text-center">
+          <div className="animate-spin w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full mx-auto mb-4" />
+          <p className="text-gray-400">Loading your results...</p>
+        </div>
       </div>
     );
   }
 
-  if (!result) {
+  if (error || !result) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-gray-500">Result not found.</p>
+        <div className="text-5xl mb-2" aria-hidden="true">&#128270;</div>
+        <p className="text-gray-500">{error || "Result not found."}</p>
         <a
           href="/quiz"
-          className="px-6 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold"
+          className="px-6 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors"
         >
           Take the Quiz
         </a>
@@ -72,7 +89,7 @@ export default function ResultsPage() {
     );
   }
 
-  const maxScore = Math.max(...result.scores.map((s) => s.score));
+  const maxScore = Math.max(...result.scores.map((s) => s.score), 1);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -126,16 +143,23 @@ export default function ResultsPage() {
           </h3>
           <div className="space-y-3">
             {result.scores.map((score) => {
-              const { ARCHETYPES } = require("@/lib/archetypes");
               const archetype = ARCHETYPES[score.name];
               const pct = maxScore > 0 ? (score.score / maxScore) * 100 : 0;
               return (
                 <div key={score.name} className="flex items-center gap-3">
-                  <span className="text-lg w-8 text-center">{archetype?.icon}</span>
+                  <span className="text-lg w-8 text-center" aria-hidden="true">
+                    {archetype?.icon}
+                  </span>
                   <span className="text-sm font-medium text-gray-700 w-32 shrink-0">
                     {score.name}
                   </span>
-                  <div className="flex-1 h-6 bg-gray-50 rounded-full overflow-hidden">
+                  <div
+                    className="flex-1 h-6 bg-gray-50 rounded-full overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={score.score}
+                    aria-valuemax={maxScore}
+                    aria-label={`${score.name} score`}
+                  >
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{

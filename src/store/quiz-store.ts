@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { QuizAnswer, ArchetypeScore, ArchetypeChord, Identity } from "@/types";
 
 interface QuizState {
@@ -11,6 +12,8 @@ interface QuizState {
   identity: Identity | null;
   resultId: string | null;
   isCompleted: boolean;
+  isSubmitting: boolean;
+  error: string | null;
 
   setAnswer: (questionId: number, value: number) => void;
   nextQuestion: () => void;
@@ -22,55 +25,75 @@ interface QuizState {
     identity: Identity,
     resultId: string
   ) => void;
+  setSubmitting: (val: boolean) => void;
+  setError: (error: string | null) => void;
   reset: () => void;
 }
 
-export const useQuizStore = create<QuizState>((set, get) => ({
+const initialState = {
   currentQuestion: 0,
-  answers: [],
-  scores: null,
-  chord: null,
-  identity: null,
-  resultId: null,
+  answers: [] as QuizAnswer[],
+  scores: null as ArchetypeScore[] | null,
+  chord: null as ArchetypeChord | null,
+  identity: null as Identity | null,
+  resultId: null as string | null,
   isCompleted: false,
+  isSubmitting: false,
+  error: null as string | null,
+};
 
-  setAnswer: (questionId, value) => {
-    const { answers } = get();
-    const existing = answers.findIndex((a) => a.questionId === questionId);
-    const updated =
-      existing >= 0
-        ? answers.map((a, i) => (i === existing ? { ...a, value } : a))
-        : [...answers, { questionId, value }];
-    set({ answers: updated });
-  },
+export const useQuizStore = create<QuizState>()(
+  persist(
+    (set, get) => ({
+      ...initialState,
 
-  nextQuestion: () => {
-    set((state) => ({ currentQuestion: state.currentQuestion + 1 }));
-  },
+      setAnswer: (questionId, value) => {
+        const { answers } = get();
+        const existing = answers.findIndex((a) => a.questionId === questionId);
+        const updated =
+          existing >= 0
+            ? answers.map((a, i) => (i === existing ? { ...a, value } : a))
+            : [...answers, { questionId, value }];
+        set({ answers: updated, error: null });
+      },
 
-  prevQuestion: () => {
-    set((state) => ({
-      currentQuestion: Math.max(0, state.currentQuestion - 1),
-    }));
-  },
+      nextQuestion: () => {
+        set((state) => ({ currentQuestion: state.currentQuestion + 1 }));
+      },
 
-  goToQuestion: (index) => {
-    set({ currentQuestion: index });
-  },
+      prevQuestion: () => {
+        set((state) => ({
+          currentQuestion: Math.max(0, state.currentQuestion - 1),
+        }));
+      },
 
-  setResults: (scores, chord, identity, resultId) => {
-    set({ scores, chord, identity, resultId, isCompleted: true });
-  },
+      goToQuestion: (index) => {
+        set({ currentQuestion: index });
+      },
 
-  reset: () => {
-    set({
-      currentQuestion: 0,
-      answers: [],
-      scores: null,
-      chord: null,
-      identity: null,
-      resultId: null,
-      isCompleted: false,
-    });
-  },
-}));
+      setResults: (scores, chord, identity, resultId) => {
+        set({ scores, chord, identity, resultId, isCompleted: true, isSubmitting: false });
+      },
+
+      setSubmitting: (val) => set({ isSubmitting: val }),
+
+      setError: (error) => set({ error, isSubmitting: false }),
+
+      reset: () => {
+        set(initialState);
+      },
+    }),
+    {
+      name: "archetype-quiz",
+      partialize: (state) => ({
+        currentQuestion: state.currentQuestion,
+        answers: state.answers,
+        scores: state.scores,
+        chord: state.chord,
+        identity: state.identity,
+        resultId: state.resultId,
+        isCompleted: state.isCompleted,
+      }),
+    }
+  )
+);

@@ -12,18 +12,20 @@ async function getGroupData(slug: string) {
   if (!group) return null;
 
   try {
-    const members = await prisma.user.findMany({
-      where: { coreArchetype: group.archetype },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    });
-
-    const meetings = await prisma.meeting.findMany({
-      where: { groupSlug: slug },
-      orderBy: { dateTime: "desc" },
-      take: 10,
-      include: { host: true, participants: true },
-    });
+    const [members, meetings] = await Promise.all([
+      prisma.user.findMany({
+        where: { coreArchetype: group.archetype, quizCompleted: true },
+        orderBy: { createdAt: "desc" },
+        take: 50,
+        select: { id: true, name: true, identityName: true },
+      }),
+      prisma.meeting.findMany({
+        where: { groupSlug: slug, cancelled: false },
+        orderBy: { dateTime: "desc" },
+        take: 10,
+        include: { _count: { select: { participants: true } } },
+      }),
+    ]);
 
     return { group, members, meetings };
   } catch {
@@ -49,6 +51,7 @@ export default async function GroupDetailPage({ params }: Props) {
             <div
               className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl shrink-0"
               style={{ backgroundColor: `${archetype.color}15` }}
+              aria-hidden="true"
             >
               {archetype.icon}
             </div>
@@ -61,10 +64,10 @@ export default async function GroupDetailPage({ params }: Props) {
               </p>
               <div className="flex flex-wrap gap-4">
                 <span className="text-sm font-medium text-gray-500">
-                  👥 {members.length} member{members.length !== 1 ? "s" : ""}
+                  {members.length} member{members.length !== 1 ? "s" : ""}
                 </span>
                 <span className="text-sm font-medium text-gray-500">
-                  📅 {meetings.length} meeting{meetings.length !== 1 ? "s" : ""}
+                  {meetings.length} meeting{meetings.length !== 1 ? "s" : ""}
                 </span>
                 <div className="flex gap-1.5">
                   {archetype.traits.map((trait) => (
@@ -102,7 +105,7 @@ export default async function GroupDetailPage({ params }: Props) {
                   href="/quiz"
                   className="text-indigo-600 font-medium hover:underline"
                 >
-                  Take the quiz to join this group →
+                  Take the quiz to join this group &#8594;
                 </a>
               </div>
             ) : (
@@ -116,15 +119,16 @@ export default async function GroupDetailPage({ params }: Props) {
                     <div
                       className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold text-white shrink-0"
                       style={{ backgroundColor: archetype.color }}
+                      aria-hidden="true"
                     >
-                      {member.name.charAt(0).toUpperCase()}
+                      {(member.name ?? "A").charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0">
                       <p className="font-semibold text-gray-900 truncate">
-                        {member.name}
+                        {member.name ?? "Anonymous"}
                       </p>
                       <p className="text-sm text-gray-500 truncate">
-                        {member.identityName}
+                        {member.identityName ?? ""}
                       </p>
                     </div>
                   </a>
@@ -145,7 +149,7 @@ export default async function GroupDetailPage({ params }: Props) {
                   href="/meetings/create"
                   className="text-indigo-600 font-medium hover:underline"
                 >
-                  Create the first meeting →
+                  Create the first meeting &#8594;
                 </a>
               </div>
             ) : (
@@ -159,15 +163,17 @@ export default async function GroupDetailPage({ params }: Props) {
                       {meeting.title}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">
-                      {new Date(meeting.dateTime).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "2-digit",
-                      })}
+                      <time dateTime={meeting.dateTime.toISOString()}>
+                        {meeting.dateTime.toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "2-digit",
+                        })}
+                      </time>
                     </p>
                     <p className="text-xs text-gray-400 mt-1">
-                      {meeting.participants.length} / {meeting.participantLimit} joined
+                      {meeting._count.participants} / {meeting.participantLimit} joined
                     </p>
                   </div>
                 ))}

@@ -4,25 +4,82 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model User {
-  id             String    @id @default(cuid())
-  name           String
-  email          String?   @unique
-  coreArchetype  String
-  balanceArchetype String
-  inverseArchetype String
-  identityName   String
-  identityDesc   String
-  scores         String    // JSON string of archetype scores
-  rarity         Float     @default(5.0)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  image            String?
+  coreArchetype    String?
+  balanceArchetype String?
+  inverseArchetype String?
+  identityName     String?
+  identityDesc     String?
+  rarity           Float     @default(0)
+  quizCompleted    Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  hostedMeetings  Meeting[]       @relation("MeetingHost")
-  participations  Participant[]
+  accounts         Account[]
+  sessions         Session[]
+  scores           ArchetypeScore[]
+  hostedMeetings   Meeting[]       @relation("MeetingHost")
+  participations   Participant[]
+
+  @@index([coreArchetype])
+  @@index([quizCompleted])
+}
+
+model ArchetypeScore {
+  id        String @id @default(cuid())
+  userId    String
+  archetype String
+  score     Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, archetype])
+  @@index([userId])
+  @@index([archetype])
 }
 
 model Meeting {
@@ -30,24 +87,32 @@ model Meeting {
   title            String
   description      String
   hostId           String
-  host             User          @relation("MeetingHost", fields: [hostId], references: [id])
+  host             User          @relation("MeetingHost", fields: [hostId], references: [id], onDelete: Cascade)
   dateTime         DateTime
   duration         Int           @default(60)
-  type             String        // peer | collaboration | mastermind
+  type             String
   participantLimit Int           @default(10)
   groupSlug        String
+  cancelled        Boolean       @default(false)
   createdAt        DateTime      @default(now())
 
   participants     Participant[]
+
+  @@index([hostId])
+  @@index([groupSlug])
+  @@index([dateTime])
+  @@index([type])
 }
 
 model Participant {
   id        String   @id @default(cuid())
   userId    String
   meetingId String
-  user      User     @relation(fields: [userId], references: [id])
-  meeting   Meeting  @relation(fields: [meetingId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   joinedAt  DateTime @default(now())
 
   @@unique([userId, meetingId])
+  @@index([userId])
+  @@index([meetingId])
 }

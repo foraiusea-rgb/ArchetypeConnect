@@ -38,7 +38,7 @@ export interface QuizQuestion {
 
 export interface QuizAnswer {
   questionId: number;
-  value: number; // 1-5
+  value: number;
 }
 
 export interface QuizResult {
@@ -61,8 +61,9 @@ export interface Meeting {
   duration: number;
   type: MeetingType;
   participantLimit: number;
-  participants: string[];
+  participantCount: number;
   groupSlug: string;
+  cancelled: boolean;
 }
 
 export interface GroupInfo {
@@ -78,9 +79,18 @@ export interface GroupInfo {
 export interface UserProfile {
   id: string;
   name: string;
+  image: string | null;
   identity: Identity;
   groups: string[];
   meetingsCreated: number;
   meetingsAttended: number;
   createdAt: Date;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  hasMore: boolean;
 }

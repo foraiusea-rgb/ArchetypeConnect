@@ -4,10 +4,11 @@ import { prisma } from "@/lib/db";
 export async function GET() {
   try {
     const [totalUsers, totalMeetings, archetypeCounts] = await Promise.all([
-      prisma.user.count(),
-      prisma.meeting.count(),
+      prisma.user.count({ where: { quizCompleted: true } }),
+      prisma.meeting.count({ where: { cancelled: false } }),
       prisma.user.groupBy({
         by: ["coreArchetype"],
+        where: { quizCompleted: true, coreArchetype: { not: null } },
         _count: true,
         orderBy: { _count: { coreArchetype: "desc" } },
       }),

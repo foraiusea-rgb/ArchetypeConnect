@@ -6,6 +6,7 @@ async function getGroupsWithCounts() {
   try {
     const counts = await prisma.user.groupBy({
       by: ["coreArchetype"],
+      where: { quizCompleted: true },
       _count: true,
     });
 
