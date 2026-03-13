@@ -1,6 +1,8 @@
 "use client";
 
-import { GroupInfo } from "@/types";
+import { GroupInfo, ArchetypeName } from "@/types";
+import ArchetypeIcon from "./ArchetypeIcon";
+import { ChevronRight } from "lucide-react";
 
 interface GroupCardProps {
   group: GroupInfo;
@@ -10,50 +12,41 @@ export default function GroupCard({ group }: GroupCardProps) {
   return (
     <a
       href={`/groups/${group.slug}`}
-      className="group block p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      className="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
     >
-      <div className="flex items-start gap-4">
-        <div
-          className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"
-          style={{ backgroundColor: `${group.color}15` }}
-        >
-          {group.icon}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
-            {group.name}
-          </h3>
-          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-            {group.description}
-          </p>
-          <div className="flex items-center gap-4 mt-3">
-            <span className="text-xs font-medium text-gray-400">
-              {group.memberCount} member{group.memberCount !== 1 ? "s" : ""}
-            </span>
-            <span
-              className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
-              style={{
-                backgroundColor: `${group.color}15`,
-                color: group.color,
-              }}
-            >
-              {group.archetype}
-            </span>
+      <div className="h-1 w-full" style={{ backgroundColor: group.color }} />
+      <div className="p-6">
+        <div className="flex items-start gap-4">
+          <div
+            className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+            style={{ backgroundColor: `${group.color}15` }}
+          >
+            <ArchetypeIcon name={group.archetype as ArchetypeName} size={24} color={group.color} />
           </div>
-        </div>
-        <svg
-          className="w-5 h-5 text-gray-300 group-hover:text-indigo-400 transition-colors shrink-0 mt-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              {group.name}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+              {group.description}
+            </p>
+            <div className="flex items-center gap-4 mt-3">
+              <span className="text-xs font-medium text-gray-400 dark:text-gray-500">
+                {group.memberCount} member{group.memberCount !== 1 ? "s" : ""}
+              </span>
+              <span
+                className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                style={{ backgroundColor: `${group.color}15`, color: group.color }}
+              >
+                {group.archetype}
+              </span>
+            </div>
+          </div>
+          <ChevronRight
+            size={18}
+            className="text-gray-300 dark:text-gray-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all shrink-0 mt-1"
           />
-        </svg>
+        </div>
       </div>
     </a>
   );

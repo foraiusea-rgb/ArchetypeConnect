@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, createContext, useContext, useCallback, ReactNode } from "react";
+import { X, CheckCircle, AlertCircle, Info } from "lucide-react";
 
 interface ToastMessage {
   id: string;
@@ -48,23 +49,26 @@ function ToastItem({ message, onDismiss }: { message: ToastMessage; onDismiss: (
     return () => clearTimeout(timer);
   }, [onDismiss]);
 
-  const colors = {
-    success: "bg-emerald-600",
-    error: "bg-red-600",
-    info: "bg-indigo-600",
+  const styles = {
+    success: { bg: "bg-emerald-600 dark:bg-emerald-700", icon: <CheckCircle size={18} /> },
+    error: { bg: "bg-red-600 dark:bg-red-700", icon: <AlertCircle size={18} /> },
+    info: { bg: "bg-indigo-600 dark:bg-indigo-700", icon: <Info size={18} /> },
   };
+
+  const style = styles[message.type];
 
   return (
     <div
-      className={`${colors[message.type]} text-white px-5 py-3 rounded-xl shadow-lg text-sm font-medium animate-slide-up flex items-center gap-3`}
+      className={`${style.bg} text-white px-5 py-3 rounded-xl shadow-lg text-sm font-medium animate-slide-up flex items-center gap-3`}
     >
+      <span className="shrink-0 opacity-90">{style.icon}</span>
       <span className="flex-1">{message.text}</span>
       <button
         onClick={onDismiss}
-        className="text-white/70 hover:text-white shrink-0"
+        className="text-white/70 hover:text-white shrink-0 transition-colors"
         aria-label="Dismiss notification"
       >
-        &#10005;
+        <X size={16} />
       </button>
     </div>
   );

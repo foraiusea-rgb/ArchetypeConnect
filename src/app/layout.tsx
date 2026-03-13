@@ -4,6 +4,7 @@ import { ToastProvider } from "@/components/Toast";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Header from "@/components/Header";
 import Providers from "@/components/Providers";
+import { ARCHETYPES, ARCHETYPE_NAMES } from "@/lib/archetypes";
 
 export const metadata: Metadata = {
   title: {
@@ -25,20 +26,21 @@ export const metadata: Metadata = {
     description:
       "Take a 2-minute personality quiz. Get your archetype chord. Connect with compatible creators.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Prevent dark mode flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-surface dark:bg-surface-dark text-gray-900 dark:text-gray-100">
         <Providers>
           <ToastProvider>
             <a
@@ -61,47 +63,56 @@ export default function RootLayout({
 
 function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-white mt-24" role="contentinfo">
+    <footer className="border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 mt-24" role="contentinfo">
+      {/* Archetype rainbow stripe */}
+      <div className="flex h-1">
+        {ARCHETYPE_NAMES.map((name) => (
+          <div key={name} className="flex-1" style={{ backgroundColor: ARCHETYPES[name].color }} />
+        ))}
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl" aria-hidden="true">&#10022;</span>
-              <span className="text-lg font-bold gradient-text">ArchetypeConnect</span>
+              <span className="text-xl gradient-text font-bold">ArchetypeConnect</span>
             </div>
-            <p className="text-gray-500 text-sm max-w-md mb-4">
+            <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md mb-4">
               A personality-based platform for creators, makers, educators, and thinkers
               to discover their archetype identity and connect with compatible minds.
             </p>
-            <p className="text-xs text-gray-400">
-              Built for anyone who creates, teaches, builds, or thinks for a living.
-            </p>
+            <a
+              href="/quiz"
+              className="inline-flex px-5 py-2 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition-colors"
+            >
+              Take the Quiz
+            </a>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">Platform</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="/quiz" className="hover:text-indigo-600 transition-colors">Take the Quiz</a></li>
-              <li><a href="/groups" className="hover:text-indigo-600 transition-colors">Archetype Groups</a></li>
-              <li><a href="/meetings" className="hover:text-indigo-600 transition-colors">Meetings</a></li>
-              <li><a href="/community" className="hover:text-indigo-600 transition-colors">Community Stats</a></li>
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Platform</h4>
+            <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+              <li><a href="/quiz" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Take the Quiz</a></li>
+              <li><a href="/groups" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Archetype Groups</a></li>
+              <li><a href="/meetings" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Meetings</a></li>
+              <li><a href="/community" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Community Stats</a></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-3">About</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="/about" className="hover:text-indigo-600 transition-colors">How It Works</a></li>
-              <li><a href="/methodology" className="hover:text-indigo-600 transition-colors">Our Methodology</a></li>
-              <li><a href="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="hover:text-indigo-600 transition-colors">Terms of Service</a></li>
+            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">About</h4>
+            <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+              <li><a href="/about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How It Works</a></li>
+              <li><a href="/methodology" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Our Methodology</a></li>
+              <li><a href="/privacy" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms of Service</a></li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-100 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-          <p>&#169; 2026 ArchetypeConnect. All rights reserved.</p>
+        <div className="border-t border-gray-100 dark:border-slate-700 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-400 dark:text-gray-500">
+          <p>&copy; 2026 ArchetypeConnect. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-indigo-600 transition-colors">Privacy</a>
-            <a href="/terms" className="hover:text-indigo-600 transition-colors">Terms</a>
-            <a href="/methodology" className="hover:text-indigo-600 transition-colors">Methodology</a>
+            <a href="/privacy" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy</a>
+            <a href="/terms" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms</a>
+            <a href="/methodology" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Methodology</a>
           </div>
         </div>
       </div>

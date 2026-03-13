@@ -1,17 +1,30 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import QuizCard from "@/components/QuizCard";
 import { useQuizStore } from "@/store/quiz-store";
 import { useToast } from "@/components/Toast";
 import { QUIZ_QUESTIONS, calculateScores, getChord } from "@/lib/quiz";
 import { generateIdentity } from "@/lib/identity";
+import { ARCHETYPES, ARCHETYPE_NAMES } from "@/lib/archetypes";
+import ArchetypeIcon from "@/components/ArchetypeIcon";
+import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+
+const ANALYZING_STEPS = [
+  "Calculating your scores...",
+  "Finding your chord...",
+  "Generating your identity...",
+];
 
 export default function QuizPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [showIntro, setShowIntro] = useState(true);
+  const [direction, setDirection] = useState(1);
+  const [analyzingStep, setAnalyzingStep] = useState(0);
+  const prevQuestion = useRef(0);
   const {
     currentQuestion,
     answers,
@@ -20,24 +33,22 @@ export default function QuizPage() {
     resultId,
     setAnswer,
     nextQuestion,
-    prevQuestion,
+    prevQuestion: goToPrev,
     setResults,
     setSubmitting,
     setError,
   } = useQuizStore();
 
-  // If quiz was already completed, redirect to results
   if (isCompleted && resultId) {
     router.push(`/results/${resultId}`);
     return null;
   }
 
   const question = QUIZ_QUESTIONS[currentQuestion];
-  const currentAnswer = answers.find(
-    (a) => a.questionId === question?.id
-  )?.value;
+  const currentAnswer = answers.find((a) => a.questionId === question?.id)?.value;
   const isLastQuestion = currentQuestion === QUIZ_QUESTIONS.length - 1;
   const allAnswered = answers.length === QUIZ_QUESTIONS.length;
+  const progressPercent = Math.round((answers.length / QUIZ_QUESTIONS.length) * 100);
 
   const handleSubmit = useCallback(async () => {
     const scores = calculateScores(answers);
@@ -45,6 +56,11 @@ export default function QuizPage() {
     const identity = generateIdentity(chord);
 
     setSubmitting(true);
+    setAnalyzingStep(0);
+    const interval = setInterval(() => {
+      setAnalyzingStep((prev) => Math.min(prev + 1, ANALYZING_STEPS.length - 1));
+    }, 1200);
+
     try {
       const res = await fetch("/api/quiz/submit", {
         method: "POST",
@@ -65,16 +81,18 @@ export default function QuizPage() {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
       setError(message);
       toast(message, "error");
+    } finally {
+      clearInterval(interval);
     }
   }, [answers, setSubmitting, setResults, setError, toast, router]);
 
   const handleAnswer = (value: number) => {
     if (!question) return;
     setAnswer(question.id, value);
-
-    // Auto-advance after a short delay for visual feedback
     if (!isLastQuestion) {
       setTimeout(() => {
+        prevQuestion.current = currentQuestion;
+        setDirection(1);
         nextQuestion();
       }, 400);
     }
@@ -82,97 +100,156 @@ export default function QuizPage() {
 
   const handleNext = () => {
     if (!currentAnswer) return;
-
     if (isLastQuestion && allAnswered) {
       handleSubmit();
     } else {
+      prevQuestion.current = currentQuestion;
+      setDirection(1);
       nextQuestion();
     }
   };
 
+  const handlePrev = () => {
+    prevQuestion.current = currentQuestion;
+    setDirection(-1);
+    goToPrev();
+  };
+
   if (!question) return null;
 
-  // Onboarding intro screen
+  // Analyzing overlay
+  if (isSubmitting) {
+    return (
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-50 dark:bg-slate-900">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="relative w-24 h-24 mx-auto mb-8">
+            <div className="absolute inset-0 rounded-full border-4 border-indigo-100 dark:border-indigo-900" />
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-600 animate-spin" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Sparkles size={28} className="text-indigo-600 dark:text-indigo-400" />
+            </div>
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={analyzingStep}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-lg font-medium text-gray-700 dark:text-gray-300"
+            >
+              {ANALYZING_STEPS[analyzingStep]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+      </div>
+    );
+  }
+
+  // Intro screen
   if (showIntro) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-50">
-        <div className="w-full max-w-lg mx-auto px-4 py-12 text-center">
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-lg p-10">
-            <div className="text-5xl mb-6" aria-hidden="true">&#10022;</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center hero-gradient relative overflow-hidden">
+        <div className="w-full max-w-lg mx-auto px-4 py-12 text-center relative z-10">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl p-10">
+            <Sparkles size={36} className="text-indigo-500 mx-auto mb-6" />
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 font-display">
               Creator Archetype Quiz
             </h1>
-            <p className="text-gray-500 mb-3 leading-relaxed">
+            <p className="text-gray-500 dark:text-gray-400 mb-3 leading-relaxed">
               Discover your unique creator identity through{" "}
-              <strong>{QUIZ_QUESTIONS.length} quick questions</strong>.
+              <strong className="text-gray-700 dark:text-gray-200">{QUIZ_QUESTIONS.length} quick questions</strong>.
             </p>
-            <p className="text-sm text-gray-400 mb-8">
+            <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
               Rate each statement from 1 (not me at all) to 5 (that&apos;s totally me).
               Takes about 2 minutes. Your progress is saved automatically.
             </p>
             <div className="space-y-3">
               <button
                 onClick={() => setShowIntro(false)}
-                className="w-full px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200"
+                className="group w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 dark:shadow-indigo-900/30"
               >
-                {answers.length > 0 ? "Continue Quiz" : "Start Quiz"} &#8594;
+                {answers.length > 0 ? "Continue Quiz" : "Start Quiz"}
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
               {answers.length > 0 && (
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   You&apos;ve answered {answers.length} of {QUIZ_QUESTIONS.length} questions
                 </p>
               )}
             </div>
           </div>
         </div>
+
+        {/* Floating archetype constellation */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          {ARCHETYPE_NAMES.slice(0, 6).map((name, i) => {
+            const arch = ARCHETYPES[name];
+            const positions = [
+              { x: 10, y: 20 }, { x: 85, y: 15 }, { x: 8, y: 75 },
+              { x: 90, y: 70 }, { x: 50, y: 8 }, { x: 45, y: 88 },
+            ];
+            return (
+              <div
+                key={name}
+                className="absolute opacity-[0.12] animate-float"
+                style={{ left: `${positions[i].x}%`, top: `${positions[i].y}%`, animationDelay: `${i * 0.8}s` }}
+              >
+                <ArchetypeIcon name={name} size={32} color={arch.color} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
 
+  // Dynamic background based on progress
+  const bgHue = 240 - progressPercent * 0.3;
+  const bgSat = 60 + progressPercent * 0.3;
+
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-50">
+    <div
+      className="min-h-[calc(100vh-4rem)] flex items-center justify-center transition-colors duration-700"
+      style={{ background: `linear-gradient(180deg, hsl(${bgHue}, ${bgSat}%, 97%) 0%, hsl(220, 40%, 96%) 100%)` }}
+    >
       <div className="w-full max-w-2xl mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-2">
+        <div className="text-center mb-10">
+          <h1 className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
             Creator Archetype Quiz
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             Rate each statement on a scale of 1 to 5
           </p>
         </div>
 
-        {/* Quiz Card */}
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-lg p-8 md:p-10">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg p-8 md:p-10">
           <QuizCard
             question={question}
             value={currentAnswer}
             onAnswer={handleAnswer}
             questionNumber={currentQuestion + 1}
             totalQuestions={QUIZ_QUESTIONS.length}
+            direction={direction}
           />
 
-          {/* Navigation */}
           <div className="flex justify-between mt-10">
             <button
-              onClick={prevQuestion}
+              onClick={handlePrev}
               disabled={currentQuestion === 0}
-              className="px-6 py-2.5 rounded-full text-sm font-medium text-gray-500 hover:text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="group inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Go to previous question"
             >
-              &#8592; Back
+              <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+              Back
             </button>
             <button
               onClick={handleNext}
               disabled={!currentAnswer || isSubmitting}
-              className="px-8 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200"
+              className="group inline-flex items-center gap-1.5 px-8 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 dark:shadow-indigo-900/30"
               aria-label={isLastQuestion && allAnswered ? "Submit quiz and see results" : "Go to next question"}
             >
-              {isSubmitting
-                ? "Analyzing..."
-                : isLastQuestion && allAnswered
-                ? "See Results"
-                : "Next \u2192"}
+              {isLastQuestion && allAnswered ? "See Results" : "Next"}
+              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
