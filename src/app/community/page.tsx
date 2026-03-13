@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { ARCHETYPE_NAMES, ARCHETYPES } from "@/lib/archetypes";
 import { ArchetypeName } from "@/types";
+
+export const metadata: Metadata = {
+  title: "Community Stats",
+  description: "See the archetype distribution, most common and rarest archetypes, and community statistics on ArchetypeConnect.",
+};
 
 async function getStats() {
   try {
@@ -51,10 +57,10 @@ export default async function DashboardPage() {
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
-            Dashboard
+            Community Stats
           </h1>
           <p className="text-lg text-gray-500">
-            Platform statistics and archetype distribution.
+            See how archetypes are distributed across the community.
           </p>
         </div>
 
