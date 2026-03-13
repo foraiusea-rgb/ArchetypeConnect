@@ -3,365 +3,764 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArchetypeConnect — Dark Immersive Mockup</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>ArchetypeConnect — Soft Pastel Redesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --canvas: #FAF8F5;
+    --surface: #FFFFFF;
+    --surface-alt: #F5F1EC;
+    --surface-warm: #FEF0EC;
+    --primary: #D4654A;
+    --primary-hover: #C05A42;
+    --primary-soft: #FEF0EC;
+    --secondary: #3D8B7A;
+    --secondary-soft: #EDF5F3;
+    --accent: #C4A35A;
+    --accent-soft: #FEF9EE;
+    --ink: #1A1A2E;
+    --body: #4A5568;
+    --muted: #94A3B8;
+    --border: rgba(0,0,0,0.06);
+    --border-hover: rgba(0,0,0,0.12);
+    --shadow: 0 2px 16px rgba(0,0,0,0.04);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,0.08);
+    --radius: 20px;
+    --radius-lg: 28px;
+  }
+
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background: #09090f;
-    color: #f0f0f5;
+    background: var(--canvas);
+    color: var(--body);
     -webkit-font-smoothing: antialiased;
   }
   .font-display { font-family: 'Instrument Serif', Georgia, serif; }
 
-  /* NAV */
+  /* ──────── NAV ──────── */
   nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(9,9,15,0.8);
+    background: rgba(250,248,245,0.85);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding: 0 2rem; height: 64px;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; height: 68px;
     display: flex; align-items: center; justify-content: space-between;
+    max-width: 100%;
   }
   nav .logo {
-    font-size: 1.25rem; font-weight: 700;
-    background: linear-gradient(135deg, #6366f1, #0ea5e9, #8b5cf6);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em;
   }
-  nav .links { display: flex; gap: 2rem; }
-  nav .links a { color: #94a3b8; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
-  nav .links a:hover { color: #f0f0f5; }
-  nav .links a.active { color: #818cf8; }
+  nav .logo span { color: var(--primary); }
+  nav .links { display: flex; gap: 2.5rem; }
+  nav .links a {
+    color: var(--muted); text-decoration: none; font-size: 0.875rem;
+    font-weight: 500; transition: color 0.2s; position: relative;
+  }
+  nav .links a:hover { color: var(--ink); }
+  nav .links a.active { color: var(--ink); font-weight: 600; }
+  nav .links a.active::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--primary); border-radius: 1px;
+  }
   nav .cta {
-    background: #6366f1; color: white; border: none; padding: 0.5rem 1.25rem;
-    border-radius: 9999px; font-size: 0.875rem; font-weight: 600; cursor: pointer;
-    box-shadow: 0 0 20px rgba(99,102,241,0.25);
-    transition: all 0.2s;
+    background: var(--primary); color: white; border: none; padding: 0.625rem 1.5rem;
+    border-radius: 12px; font-size: 0.875rem; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; letter-spacing: -0.01em;
   }
-  nav .cta:hover { background: #818cf8; box-shadow: 0 0 30px rgba(99,102,241,0.35); }
+  nav .cta:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,101,74,0.25); }
 
-  /* HERO */
+  /* ──────── HERO ──────── */
   .hero {
+    padding: 6rem 2rem 5rem; text-align: center;
+    background: var(--canvas);
     position: relative; overflow: hidden;
-    padding: 8rem 2rem 6rem;
-    text-align: center;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
     background:
-      radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.15), transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.12), transparent 50%),
-      radial-gradient(ellipse at 50% 80%, rgba(14,165,233,0.08), transparent 50%),
-      #09090f;
+      radial-gradient(ellipse at 30% 20%, rgba(212,101,74,0.06), transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(61,139,122,0.05), transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(196,163,90,0.04), transparent 60%);
+  }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--primary);
+    background: var(--primary-soft); padding: 0.5rem 1.25rem;
+    border-radius: 9999px; margin-bottom: 2rem;
   }
   .hero h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 700; line-height: 1.05;
-    color: #f0f0f5; max-width: 800px; margin: 0 auto;
+    font-size: clamp(3.5rem, 7vw, 5.5rem); font-weight: 700;
+    line-height: 1.08; color: var(--ink); max-width: 750px; margin: 0 auto;
+    letter-spacing: -0.03em; position: relative;
   }
-  .hero .gradient-word {
-    background: linear-gradient(135deg, #6366f1, #0ea5e9, #8b5cf6);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  .hero h1 .accent { color: var(--primary); }
+  .hero .subtitle {
+    color: var(--body); font-size: 1.2rem; margin-top: 1.5rem;
+    max-width: 480px; margin-left: auto; margin-right: auto;
+    line-height: 1.7;
   }
-  .hero .subtitle { color: #64748b; font-size: 1.125rem; margin-top: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-  .hero .buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
-  .hero .btn-primary {
-    background: #6366f1; color: white; border: none; padding: 0.875rem 2.5rem;
-    border-radius: 9999px; font-size: 1rem; font-weight: 600; cursor: pointer;
-    box-shadow: 0 0 30px rgba(99,102,241,0.3); transition: all 0.3s;
+  .hero .buttons {
+    display: flex; gap: 1rem; justify-content: center;
+    margin-top: 2.5rem; position: relative;
   }
-  .hero .btn-primary:hover { background: #818cf8; box-shadow: 0 0 40px rgba(99,102,241,0.4); transform: translateY(-2px); }
-  .hero .btn-secondary {
-    background: transparent; color: #94a3b8; border: 1px solid rgba(255,255,255,0.15);
-    padding: 0.875rem 2rem; border-radius: 9999px; font-size: 1rem; font-weight: 500;
-    cursor: pointer; backdrop-filter: blur(8px); transition: all 0.3s;
+  .btn-primary {
+    background: var(--primary); color: white; border: none;
+    padding: 1rem 2.5rem; border-radius: 14px; font-size: 1rem;
+    font-weight: 600; cursor: pointer; transition: all 0.3s;
+    letter-spacing: -0.01em;
   }
-  .hero .btn-secondary:hover { color: white; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
+  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,101,74,0.3); }
+  .btn-secondary {
+    background: transparent; color: var(--ink); border: 1.5px solid var(--border-hover);
+    padding: 1rem 2rem; border-radius: 14px; font-size: 1rem;
+    font-weight: 500; cursor: pointer; transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--surface); }
 
-  /* Floating icons */
-  .float-icon {
-    position: absolute; opacity: 0.35;
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; animation: float 6s ease-in-out infinite;
+  /* Archetype color strip under hero */
+  .color-strip {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 4rem; position: relative;
   }
-  @keyframes float {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(3deg); }
+  .color-dot {
+    width: 36px; height: 36px; border-radius: 10px;
+    transition: all 0.3s; cursor: default; opacity: 0.8;
   }
+  .color-dot:hover { transform: scale(1.2) translateY(-4px); opacity: 1; border-radius: 12px; }
 
-  /* SECTIONS */
+  /* ──────── SECTIONS ──────── */
   .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
-  .section-glow {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.06), transparent 60%),
-      #09090f;
-    padding: 5rem 2rem;
+  .section-alt { background: var(--surface); }
+  .section-warm { background: var(--surface-alt); }
+  .section-header {
+    text-align: center; margin-bottom: 3.5rem;
+  }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 0.75rem;
   }
   .section-title {
-    font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 0.75rem;
+    font-size: clamp(2rem, 4vw, 3rem); color: var(--ink);
+    line-height: 1.15; letter-spacing: -0.02em;
   }
   .section-subtitle {
-    color: #64748b; text-align: center; font-size: 1rem; max-width: 500px; margin: 0 auto 3rem;
+    color: var(--muted); font-size: 1.05rem; margin-top: 0.75rem;
+    max-width: 450px; margin-left: auto; margin-right: auto; line-height: 1.6;
   }
 
-  /* GLASS GLOW CARDS */
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-  .glass-card {
-    background: #111318;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px; padding: 1.5rem;
-    transition: all 0.3s ease;
+  /* ──────── STEP CARDS (What You Get) ──────── */
+  .step-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .step-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .step-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--border-hover); }
+  .step-visual {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .step-visual .step-emoji { font-size: 4rem; position: relative; z-index: 1; }
+  .step-visual .step-num {
+    position: absolute; top: 12px; right: 16px;
+    font-size: 5rem; font-weight: 800; opacity: 0.07; line-height: 1;
+    color: var(--ink);
+  }
+  .step-content { padding: 1.5rem 2rem 2rem; }
+  .step-content h3 { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+  .step-content p { font-size: 0.9rem; line-height: 1.65; color: var(--body); }
+
+  /* ──────── ARCHETYPE GRID ──────── */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem; max-width: 1200px; margin: 0 auto;
+  }
+  .arch-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    cursor: default;
+  }
+  .arch-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .arch-visual {
+    height: 140px; display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .arch-visual .arch-icon { font-size: 3rem; position: relative; z-index: 1; }
+  .arch-info { padding: 1.25rem 1.5rem 1.5rem; }
+  .arch-info h3 {
+    font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .arch-info h3 .color-pip {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .arch-info p {
+    font-size: 0.82rem; color: var(--muted); line-height: 1.55;
+    margin-bottom: 0.75rem;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .arch-traits { display: flex; gap: 0.375rem; flex-wrap: wrap; }
+  .arch-trait {
+    font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem;
+    border-radius: 8px; letter-spacing: 0.01em;
+  }
+
+  /* ──────── CHORD EXPLAINER ──────── */
+  .chord-section {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+  }
+  .chord-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .chord-card {
+    border-radius: var(--radius-lg); padding: 2.5rem 2rem;
+    text-align: center; transition: all 0.3s;
+    border: 1px solid transparent;
+  }
+  .chord-card:hover { transform: translateY(-4px); }
+  .chord-card .chord-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .chord-card .chord-emoji { font-size: 3rem; margin-bottom: 1rem; }
+  .chord-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+  .chord-card p { font-size: 0.88rem; line-height: 1.6; color: var(--body); }
+
+  /* ──────── GROUPS ──────── */
+  .groups-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .group-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+  }
+  .group-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .group-visual {
+    height: 100px; display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative;
+  }
+  .group-visual::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 30px; background: linear-gradient(to top, var(--surface), transparent);
+  }
+  .group-body { padding: 1rem 1.5rem 1.5rem; }
+  .group-body h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.25rem; }
+  .group-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.75rem;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .group-meta { display: flex; align-items: center; gap: 0.75rem; }
+  .group-meta .member-count { font-size: 0.78rem; color: var(--body); font-weight: 500; }
+  .group-meta .badge {
+    font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+  }
+
+  /* ──────── STATS ──────── */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem; max-width: 1100px; margin: 0 auto;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 2rem 1.5rem;
+    text-align: center; transition: all 0.3s;
     position: relative; overflow: hidden;
   }
-  .glass-card:hover {
-    transform: translateY(-3px);
+  .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .stat-card .stat-stripe {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
   }
-  .glass-card .top-stripe { height: 3px; position: absolute; top: 0; left: 0; right: 0; border-radius: 16px 16px 0 0; }
-  .glass-card .icon-box {
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; margin-bottom: 1rem;
-  }
-  .glass-card h3 { font-size: 1.125rem; font-weight: 700; color: #f0f0f5; margin-bottom: 0.5rem; }
-  .glass-card p { font-size: 0.875rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1rem; }
-  .glass-card .traits { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .glass-card .trait {
-    font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.625rem;
-    border-radius: 9999px;
-  }
-
-  /* STEP CARDS */
-  .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
-  .step-card {
-    background: #111318; border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px; padding: 2rem; text-align: center;
-    transition: all 0.3s; position: relative; overflow: hidden;
-  }
-  .step-card:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 0 30px rgba(99,102,241,0.08); }
-  .step-num {
-    font-size: 4rem; font-weight: 800; position: absolute; top: 0.5rem; right: 1rem;
-    opacity: 0.06; line-height: 1;
-  }
-  .step-card .step-icon {
-    width: 56px; height: 56px; border-radius: 14px;
+  .stat-card .stat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 1rem; font-size: 1.5rem;
   }
-  .step-card h3 { font-size: 1rem; font-weight: 700; color: #f0f0f5; margin-bottom: 0.5rem; }
-  .step-card p { font-size: 0.875rem; color: #64748b; line-height: 1.5; }
+  .stat-card .stat-value {
+    font-size: 2.25rem; font-weight: 800; color: var(--ink); letter-spacing: -0.02em;
+  }
+  .stat-card .stat-label {
+    font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; font-weight: 500;
+  }
 
-  /* CTA SECTION */
+  /* ──────── IDENTITY PREVIEW ──────── */
+  .identity-preview {
+    max-width: 480px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+  .identity-banner {
+    height: 100px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .identity-banner .id-icon { font-size: 2.5rem; position: relative; z-index: 1; }
+  .identity-body { padding: 1.5rem 2rem 2rem; text-align: center; }
+  .identity-body .id-name {
+    font-size: 1.5rem; font-weight: 800; color: var(--ink); margin-bottom: 0.25rem;
+  }
+  .identity-body .id-title {
+    font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;
+  }
+  .identity-chord {
+    display: flex; gap: 0.5rem; justify-content: center;
+  }
+  .identity-chord .chord-pill {
+    font-size: 0.72rem; font-weight: 600; padding: 0.35rem 0.75rem;
+    border-radius: 10px; display: flex; align-items: center; gap: 0.35rem;
+  }
+  .identity-chord .chord-pip {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+
+  /* ──────── CTA ──────── */
   .cta-section {
     text-align: center; padding: 6rem 2rem;
+    background: var(--surface-alt);
+    position: relative;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
     background:
-      radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.12), transparent 50%),
-      #09090f;
+      radial-gradient(ellipse at 50% 50%, rgba(212,101,74,0.06), transparent 50%);
   }
-  .cta-section h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
-  .cta-section p { color: #64748b; margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto; margin-bottom: 2rem; }
+  .cta-section h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem); color: var(--ink);
+    letter-spacing: -0.02em; margin-bottom: 0.75rem; position: relative;
+  }
+  .cta-section p {
+    color: var(--body); max-width: 400px; margin: 0 auto 2rem;
+    font-size: 1.05rem; line-height: 1.6; position: relative;
+  }
 
-  /* FOOTER */
+  /* ──────── FOOTER ──────── */
   footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 3rem 2rem; text-align: center;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
   }
-  .rainbow { display: flex; height: 2px; }
+  .rainbow { display: flex; height: 3px; }
   .rainbow div { flex: 1; }
-  footer p { color: #64748b; font-size: 0.875rem; margin-top: 1.5rem; }
-
-  /* Stats Row */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto 3rem; }
-  .stat-card {
-    background: #111318; border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px; padding: 1.5rem; position: relative; overflow: hidden;
-    transition: all 0.3s;
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
   }
-  .stat-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
-  .stat-card .stat-stripe { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
-  .stat-card .stat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.25rem; }
-  .stat-card .stat-value { font-size: 2rem; font-weight: 800; color: #f0f0f5; }
-  .stat-card .stat-label { font-size: 0.8rem; color: #64748b; margin-top: 0.25rem; }
+  .footer-brand { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; color: var(--ink); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--primary); }
+  .footer-copy { color: var(--muted); font-size: 0.8rem; }
 
-  /* Groups row */
-  .groups-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
-  .group-card {
-    background: #111318; border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px; overflow: hidden; transition: all 0.3s; cursor: pointer;
+  /* ──────── RESPONSIVE ──────── */
+  @media (max-width: 900px) {
+    .step-grid, .chord-cards, .groups-grid { grid-template-columns: 1fr; }
+    .arch-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-links { justify-content: center; }
   }
-  .group-card:hover { transform: translateY(-3px); }
-  .group-card .group-stripe { height: 3px; }
-  .group-card .group-body { padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
-  .group-card .group-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.25rem; }
-  .group-card h3 { font-size: 1rem; font-weight: 700; color: #f0f0f5; margin-bottom: 0.25rem; }
-  .group-card p { font-size: 0.8rem; color: #64748b; line-height: 1.5; }
-  .group-card .group-meta { display: flex; gap: 0.75rem; margin-top: 0.5rem; align-items: center; }
-  .group-card .group-meta span { font-size: 0.75rem; color: #64748b; }
-  .group-card .badge { font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 9999px; }
+  @media (max-width: 600px) {
+    .arch-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr; }
+    nav .links { display: none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ──── NAV ──── -->
 <nav>
-  <span class="logo">✦ ArchetypeConnect</span>
+  <div class="logo">Archetype<span>Connect</span></div>
   <div class="links">
-    <a href="#">Quiz</a>
-    <a href="#" class="active">Groups</a>
+    <a href="#" class="active">Quiz</a>
+    <a href="#">Groups</a>
     <a href="#">Meetings</a>
     <a href="#">Community</a>
   </div>
-  <div style="display:flex;gap:0.75rem;align-items:center;">
-    <span style="color:#64748b;font-size:0.875rem;">Sign In</span>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="#" style="color:var(--body);text-decoration:none;font-size:0.875rem;font-weight:500;">Sign In</a>
     <button class="cta">Take Quiz</button>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ──── HERO ──── -->
 <section class="hero">
-  <!-- Floating archetype icons -->
-  <div class="float-icon" style="left:8%;top:15%;background:rgba(225,29,72,0.15);color:#E11D48;animation-delay:0s;">☠</div>
-  <div class="float-icon" style="left:85%;top:12%;background:rgba(124,58,237,0.15);color:#7C3AED;animation-delay:0.8s;">🧭</div>
-  <div class="float-icon" style="left:12%;top:65%;background:rgba(37,99,235,0.15);color:#2563EB;animation-delay:1.6s;">🔗</div>
-  <div class="float-icon" style="left:90%;top:70%;background:rgba(236,72,153,0.15);color:#EC4899;animation-delay:2.2s;">📖</div>
-  <div class="float-icon" style="left:50%;top:8%;background:rgba(5,150,105,0.15);color:#059669;animation-delay:1.2s;">📡</div>
-  <div class="float-icon" style="left:45%;top:85%;background:rgba(8,145,178,0.15);color:#0891B2;animation-delay:2.8s;">🎯</div>
-
-  <h1 class="font-display">What Kind of <span class="gradient-word">Creator</span> Are You?</h1>
-  <p class="subtitle">12 questions. Your unique creator chord. A community that gets you.</p>
+  <div class="hero-label">✦ Personality-Based Creator Platform</div>
+  <h1 class="font-display">Discover Your<br>Creator <span class="accent">Archetype</span></h1>
+  <p class="subtitle">12 questions reveal your unique creator chord — your Core drive, Balance strength, and Inverse edge.</p>
   <div class="buttons">
     <button class="btn-primary">Take the Quiz →</button>
     <button class="btn-secondary">How It Works</button>
   </div>
+
+  <!-- Archetype color strip -->
+  <div class="color-strip">
+    <div class="color-dot" style="background:#E11D48;" title="Pirate"></div>
+    <div class="color-dot" style="background:#7C3AED;" title="Guide"></div>
+    <div class="color-dot" style="background:#2563EB;" title="Connector"></div>
+    <div class="color-dot" style="background:#D97706;" title="Builder"></div>
+    <div class="color-dot" style="background:#059669;" title="Reporter"></div>
+    <div class="color-dot" style="background:#F59E0B;" title="Comedian"></div>
+    <div class="color-dot" style="background:#EC4899;" title="Storyteller"></div>
+    <div class="color-dot" style="background:#8B5CF6;" title="Artist"></div>
+    <div class="color-dot" style="background:#0891B2;" title="Strategist"></div>
+    <div class="color-dot" style="background:#6366F1;" title="Philosopher"></div>
+    <div class="color-dot" style="background:#14B8A6;" title="Teacher"></div>
+    <div class="color-dot" style="background:#64748B;" title="Systems Thinker"></div>
+  </div>
 </section>
 
-<!-- WHAT YOU GET -->
-<div class="section-glow">
-  <div style="max-width:1200px;margin:0 auto;">
-    <h2 class="section-title font-display">What You Get</h2>
-    <p class="section-subtitle">A concrete identity system, not just another personality label.</p>
+<!-- ──── IDENTITY PREVIEW ──── -->
+<div style="padding:0 2rem 5rem; background:var(--canvas);">
+  <div class="section-header" style="margin-bottom:2rem;">
+    <div class="section-label">Your Result</div>
+    <h2 class="section-title font-display">A Name That's Uniquely Yours</h2>
+    <p class="section-subtitle">Your chord combination generates a one-of-a-kind creator identity.</p>
+  </div>
+  <div class="identity-preview">
+    <div class="identity-banner" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(236,72,153,0.10), rgba(20,184,166,0.08));">
+      <span class="id-icon">🧭</span>
+    </div>
+    <div class="identity-body">
+      <div class="id-name">The Luminous Pathfinder</div>
+      <div class="id-title">Guide · Artist · Builder</div>
+      <div class="identity-chord">
+        <span class="chord-pill" style="background:rgba(124,58,237,0.10);color:#7C3AED;"><span class="chord-pip" style="background:#7C3AED;"></span>Core: Guide</span>
+        <span class="chord-pill" style="background:rgba(139,92,246,0.10);color:#8B5CF6;"><span class="chord-pip" style="background:#8B5CF6;"></span>Balance: Artist</span>
+        <span class="chord-pill" style="background:rgba(217,119,6,0.10);color:#D97706;"><span class="chord-pip" style="background:#D97706;"></span>Inverse: Builder</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──── WHAT YOU GET ──── -->
+<div class="section-alt" style="padding:5rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title font-display">Three Steps to Your Identity</h2>
+      <p class="section-subtitle">No sign-up walls. Just answer, discover, connect.</p>
+    </div>
     <div class="step-grid">
       <div class="step-card">
-        <div class="step-num">01</div>
-        <div class="step-icon" style="background:rgba(99,102,241,0.15);color:#6366f1;">🎵</div>
-        <h3>Your Archetype Chord</h3>
-        <p>12 quick questions reveal your Core, Balance, and Inverse archetypes.</p>
-      </div>
-      <div class="step-card" style="--hover-color:rgba(139,92,246,0.3);">
-        <div class="step-num">02</div>
-        <div class="step-icon" style="background:rgba(139,92,246,0.15);color:#8B5CF6;">✨</div>
-        <h3>A Generated Identity</h3>
-        <p>Your chord combination produces a unique identity name — yours to claim.</p>
+        <div class="step-visual" style="background: linear-gradient(135deg, rgba(212,101,74,0.08), rgba(212,101,74,0.03));">
+          <span class="step-emoji">🎵</span>
+          <span class="step-num">01</span>
+        </div>
+        <div class="step-content">
+          <h3>Answer 12 Questions</h3>
+          <p>Quick, reflective prompts designed to reveal your creative instincts. No right or wrong answers.</p>
+        </div>
       </div>
       <div class="step-card">
-        <div class="step-num">03</div>
-        <div class="step-icon" style="background:rgba(14,165,233,0.15);color:#0ea5e9;">👥</div>
-        <h3>Your Creator Group</h3>
-        <p>Join creators who share your core archetype. Browse meetings, connect.</p>
+        <div class="step-visual" style="background: linear-gradient(135deg, rgba(61,139,122,0.08), rgba(61,139,122,0.03));">
+          <span class="step-emoji">✨</span>
+          <span class="step-num">02</span>
+        </div>
+        <div class="step-content">
+          <h3>Get Your Chord</h3>
+          <p>Your Core, Balance, and Inverse archetypes combine into a unique identity name that's yours to claim.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-visual" style="background: linear-gradient(135deg, rgba(196,163,90,0.08), rgba(196,163,90,0.03));">
+          <span class="step-emoji">👥</span>
+          <span class="step-num">03</span>
+        </div>
+        <div class="step-content">
+          <h3>Join Your Group</h3>
+          <p>Connect with creators who share your core archetype. Browse meetings, start conversations.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 12 ARCHETYPES GRID -->
-<div class="section">
-  <h2 class="section-title font-display">The 12 Creator Archetypes</h2>
-  <p class="section-subtitle">Each archetype represents a distinct approach to creative work.</p>
-  <div class="card-grid">
-    <!-- Pirate -->
-    <div class="glass-card" style="border-color:rgba(225,29,72,0.00);" onmouseover="this.style.borderColor='rgba(225,29,72,0.3)';this.style.boxShadow='0 0 30px rgba(225,29,72,0.10)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-      <div class="top-stripe" style="background:#E11D48;"></div>
-      <div class="icon-box" style="background:rgba(225,29,72,0.15);color:#E11D48;">☠</div>
-      <h3>Pirate</h3>
-      <p>Bold risk-takers who challenge conventions and forge new paths.</p>
-      <div class="traits">
-        <span class="trait" style="background:rgba(225,29,72,0.12);color:#E11D48;">Bold</span>
-        <span class="trait" style="background:rgba(225,29,72,0.12);color:#E11D48;">Disruptive</span>
-        <span class="trait" style="background:rgba(225,29,72,0.12);color:#E11D48;">Independent</span>
-      </div>
+<!-- ──── THE CHORD SYSTEM ──── -->
+<div style="padding:5rem 0; background:var(--canvas);">
+  <div class="chord-section">
+    <div class="section-header">
+      <div class="section-label">The System</div>
+      <h2 class="section-title font-display">Your Creator Chord</h2>
+      <p class="section-subtitle">Three archetypes combine to form your unique creative signature.</p>
     </div>
-    <!-- Guide -->
-    <div class="glass-card" onmouseover="this.style.borderColor='rgba(124,58,237,0.3)';this.style.boxShadow='0 0 30px rgba(124,58,237,0.10)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-      <div class="top-stripe" style="background:#7C3AED;"></div>
-      <div class="icon-box" style="background:rgba(124,58,237,0.15);color:#7C3AED;">🧭</div>
-      <h3>Guide</h3>
-      <p>Trusted mentors who illuminate pathways for others with wisdom and empathy.</p>
-      <div class="traits">
-        <span class="trait" style="background:rgba(124,58,237,0.12);color:#7C3AED;">Wise</span>
-        <span class="trait" style="background:rgba(124,58,237,0.12);color:#7C3AED;">Empathetic</span>
-        <span class="trait" style="background:rgba(124,58,237,0.12);color:#7C3AED;">Patient</span>
+    <div class="chord-cards">
+      <div class="chord-card" style="background: rgba(212,101,74,0.06); border-color: rgba(212,101,74,0.12);">
+        <div class="chord-label" style="color:var(--primary);">Core</div>
+        <div class="chord-emoji">🎯</div>
+        <h3>Your Primary Drive</h3>
+        <p>The archetype that defines your strongest creative instinct. This is who you are at your core.</p>
       </div>
-    </div>
-    <!-- Connector -->
-    <div class="glass-card" onmouseover="this.style.borderColor='rgba(37,99,235,0.3)';this.style.boxShadow='0 0 30px rgba(37,99,235,0.10)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-      <div class="top-stripe" style="background:#2563EB;"></div>
-      <div class="icon-box" style="background:rgba(37,99,235,0.15);color:#2563EB;">🔗</div>
-      <h3>Connector</h3>
-      <p>Social architects who bridge communities and ideas together.</p>
-      <div class="traits">
-        <span class="trait" style="background:rgba(37,99,235,0.12);color:#2563EB;">Social</span>
-        <span class="trait" style="background:rgba(37,99,235,0.12);color:#2563EB;">Networking</span>
-        <span class="trait" style="background:rgba(37,99,235,0.12);color:#2563EB;">Inclusive</span>
+      <div class="chord-card" style="background: rgba(61,139,122,0.06); border-color: rgba(61,139,122,0.12);">
+        <div class="chord-label" style="color:var(--secondary);">Balance</div>
+        <div class="chord-emoji">⚖️</div>
+        <h3>Your Complement</h3>
+        <p>The archetype that adds depth and nuance. It tempers your core with a complementary perspective.</p>
       </div>
-    </div>
-    <!-- Builder -->
-    <div class="glass-card" onmouseover="this.style.borderColor='rgba(217,119,6,0.3)';this.style.boxShadow='0 0 30px rgba(217,119,6,0.10)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-      <div class="top-stripe" style="background:#D97706;"></div>
-      <div class="icon-box" style="background:rgba(217,119,6,0.15);color:#D97706;">🔨</div>
-      <h3>Builder</h3>
-      <p>Hands-on creators who turn ideas into reality through craftsmanship.</p>
-      <div class="traits">
-        <span class="trait" style="background:rgba(217,119,6,0.12);color:#D97706;">Practical</span>
-        <span class="trait" style="background:rgba(217,119,6,0.12);color:#D97706;">Focused</span>
-        <span class="trait" style="background:rgba(217,119,6,0.12);color:#D97706;">Resilient</span>
+      <div class="chord-card" style="background: rgba(196,163,90,0.06); border-color: rgba(196,163,90,0.12);">
+        <div class="chord-label" style="color:var(--accent);">Inverse</div>
+        <div class="chord-emoji">🔄</div>
+        <h3>Your Growth Edge</h3>
+        <p>The archetype that challenges you. Your biggest potential for creative growth lives here.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- GROUPS PREVIEW -->
-<div class="section-glow">
-  <div style="max-width:1200px;margin:0 auto;">
-    <h2 class="section-title font-display">Archetype Groups</h2>
-    <p class="section-subtitle">Join your group. Connect with compatible creators.</p>
+<!-- ──── 12 ARCHETYPES ──── -->
+<div class="section-warm" style="padding:5rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;">
+    <div class="section-header">
+      <div class="section-label">The Archetypes</div>
+      <h2 class="section-title font-display">12 Ways to Create</h2>
+      <p class="section-subtitle">Each archetype represents a distinct approach to creative work.</p>
+    </div>
+    <div class="arch-grid">
+
+      <!-- Pirate -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(225,29,72,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(225,29,72,0.10), rgba(225,29,72,0.04));">
+          <span class="arch-icon">☠️</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#E11D48;"></span> Pirate</h3>
+          <p>Bold risk-takers who challenge conventions and forge new paths.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(225,29,72,0.08);color:#E11D48;">Bold</span>
+            <span class="arch-trait" style="background:rgba(225,29,72,0.08);color:#E11D48;">Disruptive</span>
+            <span class="arch-trait" style="background:rgba(225,29,72,0.08);color:#E11D48;">Independent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(124,58,237,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(124,58,237,0.10), rgba(124,58,237,0.04));">
+          <span class="arch-icon">🧭</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#7C3AED;"></span> Guide</h3>
+          <p>Trusted mentors who illuminate pathways with wisdom and empathy.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(124,58,237,0.08);color:#7C3AED;">Wise</span>
+            <span class="arch-trait" style="background:rgba(124,58,237,0.08);color:#7C3AED;">Empathetic</span>
+            <span class="arch-trait" style="background:rgba(124,58,237,0.08);color:#7C3AED;">Patient</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(37,99,235,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(37,99,235,0.04));">
+          <span class="arch-icon">🔗</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#2563EB;"></span> Connector</h3>
+          <p>Social architects who bridge communities and ideas together.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(37,99,235,0.08);color:#2563EB;">Social</span>
+            <span class="arch-trait" style="background:rgba(37,99,235,0.08);color:#2563EB;">Networking</span>
+            <span class="arch-trait" style="background:rgba(37,99,235,0.08);color:#2563EB;">Inclusive</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Builder -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(217,119,6,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(217,119,6,0.10), rgba(217,119,6,0.04));">
+          <span class="arch-icon">🔨</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#D97706;"></span> Builder</h3>
+          <p>Hands-on creators who turn ideas into reality through craft.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(217,119,6,0.08);color:#D97706;">Practical</span>
+            <span class="arch-trait" style="background:rgba(217,119,6,0.08);color:#D97706;">Focused</span>
+            <span class="arch-trait" style="background:rgba(217,119,6,0.08);color:#D97706;">Resilient</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reporter -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(5,150,105,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(5,150,105,0.10), rgba(5,150,105,0.04));">
+          <span class="arch-icon">📡</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#059669;"></span> Reporter</h3>
+          <p>Truth-seekers who uncover stories and share insights.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(5,150,105,0.08);color:#059669;">Curious</span>
+            <span class="arch-trait" style="background:rgba(5,150,105,0.08);color:#059669;">Investigative</span>
+            <span class="arch-trait" style="background:rgba(5,150,105,0.08);color:#059669;">Articulate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comedian -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(245,158,11,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(245,158,11,0.10), rgba(245,158,11,0.04));">
+          <span class="arch-icon">🎭</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#F59E0B;"></span> Comedian</h3>
+          <p>Sharp observers who use humor to reveal truth and connect.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(245,158,11,0.08);color:#D97706;">Witty</span>
+            <span class="arch-trait" style="background:rgba(245,158,11,0.08);color:#D97706;">Observant</span>
+            <span class="arch-trait" style="background:rgba(245,158,11,0.08);color:#D97706;">Charismatic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Storyteller -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(236,72,153,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(236,72,153,0.10), rgba(236,72,153,0.04));">
+          <span class="arch-icon">📖</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#EC4899;"></span> Storyteller</h3>
+          <p>Narrative weavers who transform experiences into meaning.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(236,72,153,0.08);color:#EC4899;">Creative</span>
+            <span class="arch-trait" style="background:rgba(236,72,153,0.08);color:#EC4899;">Engaging</span>
+            <span class="arch-trait" style="background:rgba(236,72,153,0.08);color:#EC4899;">Imaginative</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Artist -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(139,92,246,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(139,92,246,0.10), rgba(139,92,246,0.04));">
+          <span class="arch-icon">🎨</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#8B5CF6;"></span> Artist</h3>
+          <p>Visual thinkers who express ideas through aesthetics.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(139,92,246,0.08);color:#8B5CF6;">Creative</span>
+            <span class="arch-trait" style="background:rgba(139,92,246,0.08);color:#8B5CF6;">Expressive</span>
+            <span class="arch-trait" style="background:rgba(139,92,246,0.08);color:#8B5CF6;">Original</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategist -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(8,145,178,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(8,145,178,0.10), rgba(8,145,178,0.04));">
+          <span class="arch-icon">🎯</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#0891B2;"></span> Strategist</h3>
+          <p>Pattern-spotters who design winning approaches.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(8,145,178,0.08);color:#0891B2;">Analytical</span>
+            <span class="arch-trait" style="background:rgba(8,145,178,0.08);color:#0891B2;">Visionary</span>
+            <span class="arch-trait" style="background:rgba(8,145,178,0.08);color:#0891B2;">Decisive</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Philosopher -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(99,102,241,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(99,102,241,0.10), rgba(99,102,241,0.04));">
+          <span class="arch-icon">🧠</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#6366F1;"></span> Philosopher</h3>
+          <p>Deep thinkers who question assumptions and explore meaning.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(99,102,241,0.08);color:#6366F1;">Reflective</span>
+            <span class="arch-trait" style="background:rgba(99,102,241,0.08);color:#6366F1;">Intellectual</span>
+            <span class="arch-trait" style="background:rgba(99,102,241,0.08);color:#6366F1;">Principled</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(20,184,166,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(20,184,166,0.10), rgba(20,184,166,0.04));">
+          <span class="arch-icon">🎓</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#14B8A6;"></span> Teacher</h3>
+          <p>Knowledge amplifiers who empower others to grow.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(20,184,166,0.08);color:#0D9488;">Patient</span>
+            <span class="arch-trait" style="background:rgba(20,184,166,0.08);color:#0D9488;">Clear</span>
+            <span class="arch-trait" style="background:rgba(20,184,166,0.08);color:#0D9488;">Empowering</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Systems Thinker -->
+      <div class="arch-card" onmouseover="this.style.borderColor='rgba(100,116,139,0.2)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="arch-visual" style="background: linear-gradient(135deg, rgba(100,116,139,0.10), rgba(100,116,139,0.04));">
+          <span class="arch-icon">⚙️</span>
+        </div>
+        <div class="arch-info">
+          <h3><span class="color-pip" style="background:#64748B;"></span> Systems Thinker</h3>
+          <p>Complexity navigators who see how everything connects.</p>
+          <div class="arch-traits">
+            <span class="arch-trait" style="background:rgba(100,116,139,0.08);color:#64748B;">Holistic</span>
+            <span class="arch-trait" style="background:rgba(100,116,139,0.08);color:#64748B;">Analytical</span>
+            <span class="arch-trait" style="background:rgba(100,116,139,0.08);color:#64748B;">Methodical</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ──── GROUPS PREVIEW ──── -->
+<div style="padding:5rem 0; background:var(--canvas);">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;">
+    <div class="section-header">
+      <div class="section-label">Community</div>
+      <h2 class="section-title font-display">Archetype Groups</h2>
+      <p class="section-subtitle">Join your group. Connect with compatible creators.</p>
+    </div>
     <div class="groups-grid">
-      <div class="group-card" onmouseover="this.style.borderColor='rgba(225,29,72,0.3)';this.style.boxShadow='0 0 30px rgba(225,29,72,0.08)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-        <div class="group-stripe" style="background:#E11D48;"></div>
+      <div class="group-card" onmouseover="this.style.borderColor='rgba(225,29,72,0.15)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="group-visual" style="background: linear-gradient(135deg, rgba(225,29,72,0.10), rgba(225,29,72,0.04));">☠️</div>
         <div class="group-body">
-          <div class="group-icon" style="background:rgba(225,29,72,0.15);color:#E11D48;">☠</div>
-          <div>
-            <h3>Pirate Group</h3>
-            <p>Bold risk-takers who challenge conventions and forge new paths.</p>
-            <div class="group-meta">
-              <span>12 members</span>
-              <span class="badge" style="background:rgba(225,29,72,0.15);color:#E11D48;">Pirate</span>
-            </div>
+          <h3>Pirate Group</h3>
+          <p>Bold risk-takers who challenge conventions and forge new paths.</p>
+          <div class="group-meta">
+            <span class="member-count">12 members</span>
+            <span class="badge" style="background:rgba(225,29,72,0.08);color:#E11D48;">Pirate</span>
           </div>
         </div>
       </div>
-      <div class="group-card" onmouseover="this.style.borderColor='rgba(124,58,237,0.3)';this.style.boxShadow='0 0 30px rgba(124,58,237,0.08)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-        <div class="group-stripe" style="background:#7C3AED;"></div>
+      <div class="group-card" onmouseover="this.style.borderColor='rgba(124,58,237,0.15)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="group-visual" style="background: linear-gradient(135deg, rgba(124,58,237,0.10), rgba(124,58,237,0.04));">🧭</div>
         <div class="group-body">
-          <div class="group-icon" style="background:rgba(124,58,237,0.15);color:#7C3AED;">🧭</div>
-          <div>
-            <h3>Guide Group</h3>
-            <p>Trusted mentors who illuminate pathways with wisdom and empathy.</p>
-            <div class="group-meta">
-              <span>8 members</span>
-              <span class="badge" style="background:rgba(124,58,237,0.15);color:#7C3AED;">Guide</span>
-            </div>
+          <h3>Guide Group</h3>
+          <p>Trusted mentors who illuminate pathways with wisdom and empathy.</p>
+          <div class="group-meta">
+            <span class="member-count">8 members</span>
+            <span class="badge" style="background:rgba(124,58,237,0.08);color:#7C3AED;">Guide</span>
           </div>
         </div>
       </div>
-      <div class="group-card" onmouseover="this.style.borderColor='rgba(37,99,235,0.3)';this.style.boxShadow='0 0 30px rgba(37,99,235,0.08)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.06)';this.style.boxShadow='none'">
-        <div class="group-stripe" style="background:#2563EB;"></div>
+      <div class="group-card" onmouseover="this.style.borderColor='rgba(37,99,235,0.15)'" onmouseout="this.style.borderColor='rgba(0,0,0,0.06)'">
+        <div class="group-visual" style="background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(37,99,235,0.04));">🔗</div>
         <div class="group-body">
-          <div class="group-icon" style="background:rgba(37,99,235,0.15);color:#2563EB;">🔗</div>
-          <div>
-            <h3>Connector Group</h3>
-            <p>Social architects who bridge communities and ideas together.</p>
-            <div class="group-meta">
-              <span>15 members</span>
-              <span class="badge" style="background:rgba(37,99,235,0.15);color:#2563EB;">Connector</span>
-            </div>
+          <h3>Connector Group</h3>
+          <p>Social architects who bridge communities and ideas together.</p>
+          <div class="group-meta">
+            <span class="member-count">15 members</span>
+            <span class="badge" style="background:rgba(37,99,235,0.08);color:#2563EB;">Connector</span>
           </div>
         </div>
       </div>
@@ -369,46 +768,50 @@
   </div>
 </div>
 
-<!-- STATS ROW -->
-<div class="section">
-  <h2 class="section-title font-display">Community Stats</h2>
-  <p class="section-subtitle">See how archetypes are distributed.</p>
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-stripe" style="background:#6366f1;"></div>
-      <div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#6366f1;">👤</div>
-      <div class="stat-value">1,247</div>
-      <div class="stat-label">Total Users</div>
+<!-- ──── STATS ──── -->
+<div class="section-alt" style="padding:5rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;">
+    <div class="section-header">
+      <div class="section-label">Live Data</div>
+      <h2 class="section-title font-display">Community at a Glance</h2>
     </div>
-    <div class="stat-card">
-      <div class="stat-stripe" style="background:#8B5CF6;"></div>
-      <div class="stat-icon" style="background:rgba(139,92,246,0.15);color:#8B5CF6;">✓</div>
-      <div class="stat-value">892</div>
-      <div class="stat-label">Quizzes Completed</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-stripe" style="background:#0ea5e9;"></div>
-      <div class="stat-icon" style="background:rgba(14,165,233,0.15);color:#0ea5e9;">📅</div>
-      <div class="stat-value">156</div>
-      <div class="stat-label">Meetings Created</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-stripe" style="background:#059669;"></div>
-      <div class="stat-icon" style="background:rgba(5,150,105,0.15);color:#059669;">🏢</div>
-      <div class="stat-value">12</div>
-      <div class="stat-label">Active Groups</div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-stripe" style="background:var(--primary);"></div>
+        <div class="stat-icon" style="background:var(--primary-soft);color:var(--primary);">👤</div>
+        <div class="stat-value">1,247</div>
+        <div class="stat-label">Total Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-stripe" style="background:var(--secondary);"></div>
+        <div class="stat-icon" style="background:var(--secondary-soft);color:var(--secondary);">✓</div>
+        <div class="stat-value">892</div>
+        <div class="stat-label">Quizzes Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-stripe" style="background:var(--accent);"></div>
+        <div class="stat-icon" style="background:var(--accent-soft);color:var(--accent);">📅</div>
+        <div class="stat-value">156</div>
+        <div class="stat-label">Meetings Created</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-stripe" style="background:#8B5CF6;"></div>
+        <div class="stat-icon" style="background:rgba(139,92,246,0.10);color:#8B5CF6;">🏢</div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Active Groups</div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- CTA -->
+<!-- ──── CTA ──── -->
 <section class="cta-section">
-  <h2 class="font-display">We're Building This Together</h2>
+  <h2 class="font-display">We're Building This <span style="color:var(--primary);">Together</span></h2>
   <p>Take the quiz, get your identity, and be among the first creators in your archetype group.</p>
-  <button class="btn-primary" style="font-size:1.125rem;padding:1rem 3rem;">Take the Quiz →</button>
+  <button class="btn-primary" style="font-size:1.1rem;padding:1.1rem 3rem;">Take the Quiz →</button>
 </section>
 
-<!-- FOOTER -->
+<!-- ──── FOOTER ──── -->
 <footer>
   <div class="rainbow">
     <div style="background:#E11D48"></div><div style="background:#7C3AED"></div>
@@ -418,7 +821,18 @@
     <div style="background:#0891B2"></div><div style="background:#6366F1"></div>
     <div style="background:#14B8A6"></div><div style="background:#64748B"></div>
   </div>
-  <p>© 2026 ArchetypeConnect. All rights reserved.</p>
+  <div class="footer-inner">
+    <div class="footer-brand">ArchetypeConnect</div>
+    <div class="footer-links">
+      <a href="#">Quiz</a>
+      <a href="#">Groups</a>
+      <a href="#">Meetings</a>
+      <a href="#">Community</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 ArchetypeConnect</div>
+  </div>
 </footer>
 
 </body>
